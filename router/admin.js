@@ -3,7 +3,7 @@ import multer from "multer";
 import fs from "fs";
 
 var storage = multer.diskStorage({
-  destination: "./public/products/",
+  destination: './public/products/',
   filename: function (req, file, cb) {
     cb(
       null,
@@ -45,12 +45,29 @@ router.get("", async (req, res) => {
   }
 });
 
-router.get("/products", async (req, res) => {
+router.get("/evenements", async (req, res) => {
+  // Show all product, with the possibility to edit them and add new ones
+
+  try {
+    if (!req.session.isLoggedIn || req.session.category !== "admin") {
+      res.redirect("/login?returnUrl=/admin/evenements");
+      return;
+    }
+
+    res.render("admin-evenements");
+  } catch (err) {
+    console.error("Erreur lors du traitement des requêtes SQL :", err);
+    // Gérer l'erreur comme vous le souhaitez
+    res.status(500).send("Une erreur s'est produite");
+  }
+});
+
+router.get('/products', async (req, res) => {
   //Show all product, with the possibility to edit them and add new ones
 
   try {
-    if (!req.session.isLoggedIn || !req.session.isAdmin) {
-      res.redirect("/login?returnUrl=/admin/products");
+    if (!req.session.isLoggedIn || req.session.category !== 'admin') {
+      res.redirect('/login?returnUrl=/admin/products');
       return;
     }
 

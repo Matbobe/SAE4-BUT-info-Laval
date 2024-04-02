@@ -13,6 +13,16 @@ router.post('', async (req, res) => {
   const {username, password, category} = req.body;
   const email = req.session.email; //since this is the last step of the registration process, the email is stored in the session
 
+  const [results] = await pool.query(
+    "SELECT count(*) as UsernameIdentique FROM user WHERE username = ?",
+    [username]
+  );
+  
+  if(results[0].UsernameIdentique > 0) {
+    res.status(402).json({error: 'Pseudo déjà utilisé'});
+    return;
+  }
+
   //check if category is valid (!= admin)
   if (category === 'admin') {
     res.status(403).json({error: 'Vous ne pouvez pas faire ça'});
