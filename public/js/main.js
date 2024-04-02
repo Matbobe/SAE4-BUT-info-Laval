@@ -1,3 +1,4 @@
+
 // Function to handle form submission for login
 var urlParams = new URLSearchParams(window.location.search);
 var returnUrl = urlParams.get('returnUrl') || '/';
@@ -5,27 +6,13 @@ var returnUrl = urlParams.get('returnUrl') || '/';
 const registerForm = document.querySelector('.registerForm:not(.nonInfo');
 const nonInfoRegisterForm = document.querySelector('.registerForm.nonInfo');
 
-function hashPass(password) {
-  var hash = 0,
-    i,
-    chr;
 
-  for (i = 0; i < password.length; i++) {
-    chr = password.charCodeAt(i);
-    hash = (hash << 5) - hash + chr;
-    hash |= 0; // Convert to 32bit integer
-  }
-
-  return hash.toString();
-}
 
 document.getElementById('loginForm').addEventListener('submit', (e) => {
   e.preventDefault();
 
   const username = document.getElementById('loginUsername').value;
   var password = document.getElementById('loginPassword').value;
-  // Hash the password before sending it to the server
-  password = hashPass(password);
 
   // Make a POST request to the login endpoint
   fetch('/api/account/login', {
@@ -122,8 +109,6 @@ if (registerForm.classList.contains('emailSubmit')) {
 
     const username = document.getElementById('username').value;
     var password = document.getElementById('registerPassword').value;
-    // Hash the password before sending it to the server
-    password = hashPass(password);
 
     const category = document.getElementById('category').value;
 
