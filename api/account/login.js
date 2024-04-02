@@ -10,11 +10,15 @@ router.post("", async (req, res) => {
       "SELECT category, email, xp, name ,password  FROM user LEFT JOIN grade ON grade.id = user.grade WHERE username = ?",
       [username, password]
     );
-    checkPass(password, results[0].password);
+    const checkpass=checkPass(password, results[0].password);
+    if (!checkpass) {
+      res.status(402).json({ error: "Mot de passe incorrect" });
+      return;
+    }
     
     
     if (results.length === 0) {
-      res.status(401).json({ error: "Pseudo ou mot de passe incorrect" });
+      res.status(401).json({ error: "Pseudo incorrect" });
       return;
     }
     req.session.isAdmin = results[0].category === "admin";
