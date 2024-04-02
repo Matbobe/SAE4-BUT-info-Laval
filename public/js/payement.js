@@ -222,10 +222,8 @@ function checkout(listOfItems) {
     .then((res) => res.json())
     .then((data) => {
       if (data.success) {
-        userAlertGood('Inscription réussie');
-        setTimeout(() => {
-          window.location.href = '/account';
-        }, 1000);
+        userAlertGood('Payement effectué avec succès');
+        window.location.href = '/account';
       } else if (data.error) {
         userAlert(data.error);
       } else {

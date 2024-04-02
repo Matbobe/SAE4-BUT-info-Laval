@@ -6,6 +6,7 @@ import session from "express-session";
 
 import { readFileSync, readdirSync } from "fs";
 
+import bcrypt from "bcrypt";
 import https from "https";
 import http from "http";
 
@@ -60,6 +61,7 @@ export {
   enteredPasscodes,
   forgotten_passcodes,
   forgotten_enteredPasscodes,
+  hashPass,
 };
 
 //test if db link is working
@@ -70,6 +72,9 @@ try {
   console.error("Database not connected");
   console.error(err);
   process.exit(1);
+}
+function hashPass(password) {
+  return bcrypt.hashSync(password, 10);
 }
 
 //GET SECTION BELOW

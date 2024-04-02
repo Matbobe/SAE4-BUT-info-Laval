@@ -4,6 +4,7 @@ import {
   pool,
   forgotten_enteredPasscodes,
   forgotten_passcodes,
+  hashPass,
 } from '../../server.js';
 
 async function changePassword(req, res) {
@@ -23,10 +24,10 @@ async function changePassword(req, res) {
     res.status(403).json({error: 'Les mots de passe ne correspondent pas'});
     return;
   }
-
+  const passwordhash= hashPass(password1);
   await pool.query(
     'UPDATE user SET password = ? WHERE email = ?',
-    [password1, email],
+    [passwordhash, email],
     (err) => {
       if (err) {
         console.error('Impossible de changer le mot de passe :', err);
