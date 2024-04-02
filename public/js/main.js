@@ -131,6 +131,8 @@ if (registerForm.classList.contains('emailSubmit')) {
           userAlert(
             'Impossible de créer le compte, merci de réessayer plus tard'
           );
+        } else if(response.status === 402) {
+          userAlert('Pseudo déjà utilisé');
         } else {
           window.location.href = returnUrl; // Redirect to the returned URL
         }

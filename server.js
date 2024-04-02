@@ -62,6 +62,7 @@ export {
   forgotten_passcodes,
   forgotten_enteredPasscodes,
   hashPass,
+  checkPass,
 };
 
 //test if db link is working
@@ -75,6 +76,9 @@ try {
 }
 function hashPass(password) {
   return bcrypt.hashSync(password, 10);
+}
+function checkPass(password, hash) {
+  return bcrypt.compareSync(password, hash);
 }
 
 //GET SECTION BELOW
