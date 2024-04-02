@@ -1,10 +1,12 @@
 import express from 'express';
+
 const router = express.Router();
 import {
   pool,
   enteredPasscodes,
   passcodes,
   setSessionItems,
+  hashPass,
 } from '../../server.js';
 
 router.post('', async (req, res) => {
@@ -34,16 +36,17 @@ router.post('', async (req, res) => {
       }
     }
   );
-
+    
   if (exists.length > 0) {
     res.status(409).json({error: 'Email déjà utilisée'});
     return;
   }
+  const hashedPassword = hashPass(password);
 
   await pool.query(
     'INSERT INTO user (username, password, email, category) VALUES (?, ?, ?, ?)',
 
-    [username, password, email, category],
+    [username, hashedPassword, email, category],
     (err) => {
       if (err) {
         console.error('Impossible de créer le compte :', err);

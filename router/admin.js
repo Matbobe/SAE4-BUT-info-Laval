@@ -2,8 +2,8 @@ import express from "express";
 import multer from "multer";
 import fs from "fs";
 
-const storage = multer.diskStorage({
-  destination: "./public/products/",
+var storage = multer.diskStorage({
+  destination: './public/products/',
   filename: function (req, file, cb) {
     cb(
       null,
@@ -62,12 +62,12 @@ router.get("/evenements", async (req, res) => {
   }
 });
 
-router.get("/products", async (req, res) => {
-  // Show all product, with the possibility to edit them and add new ones
+router.get('/products', async (req, res) => {
+  //Show all product, with the possibility to edit them and add new ones
 
   try {
-    if (!req.session.isLoggedIn || req.session.category !== "admin") {
-      res.redirect("/login?returnUrl=/admin/products");
+    if (!req.session.isLoggedIn || req.session.category !== 'admin') {
+      res.redirect('/login?returnUrl=/admin/products');
       return;
     }
 

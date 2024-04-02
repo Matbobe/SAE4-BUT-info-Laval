@@ -13,7 +13,7 @@
   </head>
 
   <body data-theme="light" id="homeBody">
-    <%- include('header', {cartSize, isLoggedIn}) %>
+    <%- include('header', {cartSize, isLoggedIn, isAdmin}) %>
 
     <span id="top"></span>
     <div id="accueil">
@@ -221,21 +221,21 @@
 
     window.calData = decodedData;
 
-    const overlay = document.getElementById('overlay');
+    const overlay = document.getElementById("overlay");
 
     //hide overlay
-    overlay.addEventListener('click', (e) => {
-      const eventCard = document.getElementById('eventCard');
+    overlay.addEventListener("click", (e) => {
+      const eventCard = document.getElementById("eventCard");
       if (!eventCard.contains(e.target)) {
-        overlay.classList.remove('visible');
-        document.getElementById('eventCard').classList.remove('visible');
+        overlay.classList.remove("visible");
+        document.getElementById("eventCard").classList.remove("visible");
       }
     });
 
     //get the top 3 podium user profile pictures
-    const pfps = document.querySelectorAll('.podiumPfp');
+    const pfps = document.querySelectorAll(".podiumPfp");
 
-    fetch('/api/user/getPodiumPfps')
+    fetch("/api/user/getPodiumPfps")
       .then((res) => res.json())
       .then((data) => {
         const images = data.images;
@@ -248,63 +248,63 @@
       })
       .catch((err) => console.log(err));
 
-    const userGrade = '<%= grade %>';
+    const userGrade = "<%= grade %>";
     console.log(userGrade);
-    if (userGrade !== 'None' && userGrade !== '') {
-      var gradeToDisable = document.querySelector('.b' + userGrade);
-      gradeToDisable.classList.add('disabled');
-      gradeToDisable.innerHTML = 'Déjà acheté';
+    if (userGrade !== "None" && userGrade !== "") {
+      var gradeToDisable = document.querySelector(".b" + userGrade);
+      gradeToDisable.classList.add("disabled");
+      gradeToDisable.innerHTML = "Déjà acheté";
       gradeToDisable.disabled = true;
     }
     window.userGrade = userGrade;
 
     function previousImage() {
-      const images = document.querySelectorAll('#photoGrid img');
-      const indicators = document.querySelectorAll('.indicator');
+      const images = document.querySelectorAll("#photoGrid img");
+      const indicators = document.querySelectorAll(".indicator");
       let selectedImage = 0;
       for (let i = 0; i < images.length; i++) {
-        if (images[i].classList.contains('selected')) {
+        if (images[i].classList.contains("selected")) {
           selectedImage = i;
-          images[i].classList.remove('selected');
-          indicators[i].classList.remove('selected');
+          images[i].classList.remove("selected");
+          indicators[i].classList.remove("selected");
         }
       }
       if (selectedImage === 0) {
-        images[images.length - 1].classList.add('selected');
-        indicators[images.length - 1].classList.add('selected');
+        images[images.length - 1].classList.add("selected");
+        indicators[images.length - 1].classList.add("selected");
       } else {
-        images[selectedImage - 1].classList.add('selected');
-        indicators[selectedImage - 1].classList.add('selected');
+        images[selectedImage - 1].classList.add("selected");
+        indicators[selectedImage - 1].classList.add("selected");
       }
     }
 
     function nextImage() {
-      const images = document.querySelectorAll('#photoGrid img');
-      const indicators = document.querySelectorAll('.indicator');
+      const images = document.querySelectorAll("#photoGrid img");
+      const indicators = document.querySelectorAll(".indicator");
       let selectedImage = 0;
       for (let i = 0; i < images.length; i++) {
-        if (images[i].classList.contains('selected')) {
+        if (images[i].classList.contains("selected")) {
           selectedImage = i;
-          images[i].classList.remove('selected');
-          indicators[i].classList.remove('selected');
+          images[i].classList.remove("selected");
+          indicators[i].classList.remove("selected");
         }
       }
       if (selectedImage === images.length - 1) {
-        images[0].classList.add('selected');
-        indicators[0].classList.add('selected');
+        images[0].classList.add("selected");
+        indicators[0].classList.add("selected");
       } else {
-        images[selectedImage + 1].classList.add('selected');
-        indicators[selectedImage + 1].classList.add('selected');
+        images[selectedImage + 1].classList.add("selected");
+        indicators[selectedImage + 1].classList.add("selected");
       }
     }
   </script>
 
   <script src="/js/logic.js"></script>
   <script>
-    if (document.body.getAttribute('data-theme') === 'dark') {
-      document.getElementById('themeSwitcher').innerHTML = 'Theme clair';
+    if (document.body.getAttribute("data-theme") === "dark") {
+      document.getElementById("themeSwitcher").innerHTML = "Theme clair";
     } else {
-      document.getElementById('themeSwitcher').innerHTML = 'Theme sombre';
+      document.getElementById("themeSwitcher").innerHTML = "Theme sombre";
     }
   </script>
 </html>

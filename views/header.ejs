@@ -3,6 +3,10 @@
   <a href="/#evenements">Evenements</a>
   <a href="/calendar/">Agenda</a>
   <a href="/shop/">Boutique</a>
+
+  <% if (isAdmin) { %>
+    <a href="/admin/">Admin</a>
+  <% } %>
   <% if(cartSize > 0) {%>
     <a id="cartButton" href="/pay/" style="--number: <%= "'"+cartSize+"'" %>">Panier</a>
   <% } %> 

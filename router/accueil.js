@@ -1,6 +1,6 @@
-import express, {json} from 'express';
-import ICAL from 'ical.js';
-import fs from 'fs';
+import express, { json } from "express";
+import ICAL from "ical.js";
+import fs from "fs";
 const router = express.Router();
 import {
   fromURL,
@@ -11,19 +11,19 @@ import {
   goldprice,
   diamantprice,
   getVersion,
-} from '../server.js';
+} from "../server.js";
 
 function getHomeImages() {
   //get all images from public/images/home
-  const homeImages = fs.readdirSync('./public/images/home');
+  const homeImages = fs.readdirSync("./public/images/home");
   //remove all files that don't have .jpg / .jpeg or .png extension
   homeImages.forEach((element, index) => {
     if (
-      !element.endsWith('.jpg') &&
-      !element.endsWith('.jpeg') &&
-      !element.endsWith('.png') &&
-      !element.endsWith('.webp') &&
-      !element.endsWith('.JPG')
+      !element.endsWith(".jpg") &&
+      !element.endsWith(".jpeg") &&
+      !element.endsWith(".png") &&
+      !element.endsWith(".webp") &&
+      !element.endsWith(".JPG")
     ) {
       homeImages.splice(index, 1);
     }
@@ -32,9 +32,9 @@ function getHomeImages() {
   return homeImages;
 }
 
-router.get('', async (req, res) => {
+router.get("", async (req, res) => {
   try {
-    const data = fs.readFileSync('./public/ical/basic.ics', 'utf8');
+    const data = fs.readFileSync("./public/ical/basic.ics", "utf8");
     if (!ironprice || !goldprice || !diamantprice) {
       await getGradePrices();
     }
@@ -45,7 +45,7 @@ router.get('', async (req, res) => {
     req.session.grade = userGrade;
 
     if (req.session.isLoggedIn) {
-      console.log('User ' + req.session.email + ' is logged in');
+      console.log("User " + req.session.email + " is logged in");
     }
 
     const version = getVersion();
@@ -63,20 +63,20 @@ router.get('', async (req, res) => {
     if (vevents.length > 0) {
       events = [vevents].map((vevent) => {
         return {
-          summary: vevent.find((x) => x[0] === 'summary')[3],
-          start: new Date(vevent.find((x) => x[0] === 'dtstart')[3]),
-          end: new Date(vevent.find((x) => x[0] === 'dtend')[3]),
-          description: vevent.find((x) => x[0] === 'description')[3],
-          location: vevent.find((x) => x[0] === 'location')[3],
+          summary: vevent.find((x) => x[0] === "summary")[3],
+          start: new Date(vevent.find((x) => x[0] === "dtstart")[3]),
+          end: new Date(vevent.find((x) => x[0] === "dtend")[3]),
+          description: vevent.find((x) => x[0] === "description")[3],
+          location: vevent.find((x) => x[0] === "location")[3],
           // Add other properties as needed
         };
       });
     } else {
-      console.log('No VEVENT components found in the VCALENDAR.');
-      res.status(500).send('No VEVENT components found in the VCALENDAR.');
+      console.log("No VEVENT components found in the VCALENDAR.");
+      res.status(500).send("No VEVENT components found in the VCALENDAR.");
       return;
     }
-    res.render('index', {
+    res.render("index", {
       username: req.session.username,
       cartSize: req.session.cart && req.session.cart.length,
       isLoggedIn: req.session.isLoggedIn,
@@ -88,15 +88,16 @@ router.get('', async (req, res) => {
       podium: req.session.podium,
       version,
       homeImages,
+      isAdmin: req.session.isAdmin,
     });
     return;
   } catch (err) {
-    console.error('Error fetching iCal data (from google cal)');
-    console.error('Error rendering index:', err);
+    console.error("Error fetching iCal data (from google cal)");
+    console.error("Error rendering index:", err);
     res
       .status(500)
       .send(
-        'Internal Server Error : the server encountered an error trying to read the provided google calendar file.'
+        "Internal Server Error : the server encountered an error trying to read the provided google calendar file."
       );
     return;
   }
