@@ -17,7 +17,7 @@ router.post('', async (req, res) => {
     "SELECT count(*) as UsernameIdentique FROM user WHERE username = ?",
     [username]
   );
-  console.log(results);
+  
   if(results[0].UsernameIdentique > 0) {
     res.status(402).json({error: 'Pseudo déjà utilisé'});
     return;

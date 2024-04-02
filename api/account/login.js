@@ -1,17 +1,18 @@
 import express from "express";
-import { hashPass } from "../../server.js";
+import { checkPass } from "../../server.js";
 const router = express.Router();
 import { pool, setSessionItems } from "../../server.js";
 
 router.post("", async (req, res) => {
   const { username, password } = req.body;
-  const passwordhash = hashPass(password);
   try {
     const [results] = await pool.query(
-      "SELECT category, email, xp, name FROM user LEFT JOIN grade ON grade.id = user.grade WHERE username = ? AND password = ?",
-      [username, passwordhash]
+      "SELECT category, email, xp, name ,password  FROM user LEFT JOIN grade ON grade.id = user.grade WHERE username = ?",
+      [username, password]
     );
-
+    checkPass(password, results[0].password);
+    
+    
     if (results.length === 0) {
       res.status(401).json({ error: "Pseudo ou mot de passe incorrect" });
       return;
