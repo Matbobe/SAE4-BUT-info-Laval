@@ -307,4 +307,14 @@
       document.getElementById("themeSwitcher").innerHTML = "Theme sombre";
     }
   </script>
+  <script>
+    const changeTest = () => {
+      let text = document.querySelector('#eventsCalendar > div.fc-view-harness.fc-view-harness-passive > div > div > div > div');
+      if (text) {
+        text.innerHTML = 'Aucun évènement trouvé';
+      }
+    };
+
+    setInterval(changeTest, 50);
+  </script>
 </html>

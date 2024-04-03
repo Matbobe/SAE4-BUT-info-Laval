@@ -261,7 +261,7 @@ function renderEventsCalendar(events) {
       },
     },
     initialView: 'listMonth',
-
+    locale: 'fr',
     initialDate: new Date(),
     headerToolbar: {
       left: 'title',
