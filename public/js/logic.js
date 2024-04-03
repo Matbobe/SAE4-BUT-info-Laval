@@ -111,7 +111,10 @@ if (document.querySelector('header') !== null) {
     banner.appendChild(bannerText);
     banner.appendChild(bannerLink);
 
-    document.querySelector('header').appendChild(banner);
+    const header = document.querySelector('header');
+    header.appendChild(banner);
+    const top = document.querySelector('#top');
+    top.style.marginTop = '30px';
   }
 }
 
