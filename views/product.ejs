@@ -15,7 +15,7 @@
   <body data-theme="light">
     <%- include('header', {cartSize, isLoggedIn}) %>
     <div class="productContainer">
-      <img id="img" src="/products/<%= product.image %>" />
+      <img id="img"  src="/products/<%= product.image %>"  />
       <div class="desc">
         <h1><%= product.name %></h1>
         <p class="available_until"></p>
@@ -68,13 +68,16 @@
   </body>
   <script src="/js/logic.js"></script>
   <script>
-    document.getElementById('img').style.backgroundColor = randomPastelColor(
-      '<%= product.name %>'
-    );
-
-    document.getElementById('buy').style.backgroundColor = randomPastelColor(
-      '<%= product.name %>'
-    );
+    const background_color = "<%= product.background_color %>";
+    const random_Color = randomPastelColor('<%= product.name %>');
+    if (background_color){
+    document.getElementById('img').style.backgroundColor = background_color;
+    console.log(background_color);
+    document.getElementById('buy').style.backgroundColor = background_color;
+    }else{
+      document.getElementById('img').style.backgroundColor =  random_Color;
+      document.getElementById('buy').style.backgroundColor =  random_Color;
+    }
 
     const date_expire = '<%= product.expire_date %>';
     const date = new Date(date_expire);

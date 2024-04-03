@@ -254,6 +254,18 @@ function editProduct(id) {
   promotedSpan.appendChild(promotedInput);
   editProductForm.appendChild(promotedSpan);
 
+  const backgroundColorSpan = document.createElement('span');
+  backgroundColorSpan.innerHTML = '<p>Couleur du background</p>';
+  backgroundColorSpan.classList.add('backgroundColorSpan');
+
+  const background_color_input = document.createElement('input');
+  background_color_input.setAttribute('type', 'color');
+  background_color_input.setAttribute('name', 'background_color');
+  background_color_input.setAttribute('value', product.background_color);
+
+  backgroundColorSpan.appendChild(background_color_input);
+  editProductForm.appendChild(backgroundColorSpan);
+
   const submitButton = document.createElement('button');
   submitButton.setAttribute('type', 'submit');
   submitButton.classList.add('adminButton');

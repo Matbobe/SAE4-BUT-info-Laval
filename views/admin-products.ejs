@@ -78,6 +78,13 @@
               id="productIsPromoted"
               placeholder="Promu"
             />
+            <p>Couleur du background</p>
+            <input
+              type="color"
+              name="background_color"
+              id="background_color"
+              placeholder="color"
+            />
           </span>
         </span>
         <span>
@@ -127,6 +134,7 @@
           class="productImage"
           style="
             background-image: url('/products/<%= product.image %>');
+            background-color: <%= product.background_color %>;
             --progress: <%= (product.sales_count / product.confirm_threashold) *
               100 %>%;
           "

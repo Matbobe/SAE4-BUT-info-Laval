@@ -205,6 +205,7 @@ CREATE TABLE `product` (
   `release_date` datetime DEFAULT NULL,
   `expire_date` datetime DEFAULT NULL,
   `confirm_threashold` int(11) DEFAULT NULL,
+  `background_color` varchar(255) DEFAULT NULL,
   `color` varchar(255) DEFAULT NULL,
   `is_promoted` int(1) DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -227,6 +228,7 @@ VALUES (
     '2024-01-24 19:00:00',
     '2024-02-15 20:00:00',
     NULL,
+    '#f5f5f5',
     'bleu-marine',
     1
   ),
@@ -238,6 +240,7 @@ VALUES (
     'image-1706120804285.png',
     '2024-01-24 19:00:00',
     '2024-06-30 23:59:00',
+    NULL,
     NULL,
     NULL,
     0

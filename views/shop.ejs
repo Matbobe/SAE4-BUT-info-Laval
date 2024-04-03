@@ -43,7 +43,7 @@
       >
         <div
           class="productImage"
-          style="background-image: url('/products/<%= product.image %>')"
+          style="background-image: url('/products/<%= product.image %>');  background-color:<%= product.background_color %>"
         ></div>
         <div class="productDesc">
           <h4><%= product.name %></h4>
@@ -56,8 +56,7 @@
   </body>
   <script src="/js/logic.js"></script>
   <script>
-    document.getElementById('splashBanner').style.backgroundColor =
-      randomPastelColor(document.getElementById('splashTitle').textContent);
+    document.getElementById('splashBanner').style.backgroundColor ="<%=background_color %>"
 
     document.querySelectorAll('.productImage').forEach((el) => {
       el.parentElement.style.backgroundColor = randomPastelColor(

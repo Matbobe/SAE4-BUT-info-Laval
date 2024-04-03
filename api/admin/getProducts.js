@@ -61,6 +61,7 @@ router.get('', async (req, res) => {
           is_promoted: item.is_promoted,
           expire_date: item.expire_date,
           confirm_threashold: item.confirm_threashold,
+          background_color: item.background_color,
           colors: colors.map((color) => color.name),
           sizes: sizes.map((size) => size.name),
           sales: item.transaction_id

@@ -40,6 +40,7 @@ router.post('', upload.single('image'), async (req, res) => {
       expire_date,
       confirm_threashold,
       is_promoted,
+      background_color,
       color,
       sizes,
     } = req.body;
@@ -137,7 +138,7 @@ router.post('', upload.single('image'), async (req, res) => {
         //add product with image
         await pool
           .query(
-            'INSERT INTO product (name, description, price, image, release_date, expire_date, confirm_threashold, is_promoted, color) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
+            'INSERT INTO product (name, description, price, image, release_date, expire_date, confirm_threashold, is_promoted,background_color, color) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
             [
               name,
               description,
@@ -147,6 +148,7 @@ router.post('', upload.single('image'), async (req, res) => {
               expire_date,
               confirm_threashold,
               is_promoted,
+              background_color,
               color,
             ]
           )
