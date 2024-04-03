@@ -25,7 +25,10 @@ document.getElementById('loginForm').addEventListener('submit', (e) => {
     .then((response) => {
       if (response.status === 401) {
         userAlert('Identifiants incorrects');
-      } else {
+      } else if(response.status === 402) {
+        userAlert('Mot de passe incorrect');
+      } 
+      else{
         window.location.href = returnUrl; // Redirect to the returned URL
       }
     })
