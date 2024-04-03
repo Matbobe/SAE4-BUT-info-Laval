@@ -77,13 +77,16 @@
   </body>
   <script src="/js/logic.js"></script>
   <script>
-    document.getElementById("img").style.backgroundColor = randomPastelColor(
-      "<%= product.name %>"
-    );
-
-    document.getElementById("buy").style.backgroundColor = randomPastelColor(
-      "<%= product.name %>"
-    );
+    const background_color = "<%= product.background_color %>";
+    const random_Color = randomPastelColor("<%= product.name %>");
+    if (background_color) {
+      document.getElementById("img").style.backgroundColor = background_color;
+      console.log(background_color);
+      document.getElementById("buy").style.backgroundColor = background_color;
+    } else {
+      document.getElementById("img").style.backgroundColor = random_Color;
+      document.getElementById("buy").style.backgroundColor = random_Color;
+    }
 
     document
       .getElementById("quantitySelector")

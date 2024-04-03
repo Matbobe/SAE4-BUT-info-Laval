@@ -205,6 +205,7 @@ CREATE TABLE `product` (
   `release_date` datetime DEFAULT NULL,
   `expire_date` datetime DEFAULT NULL,
   `confirm_threashold` int(11) DEFAULT NULL,
+  `background_color` varchar(255) DEFAULT NULL,
   `color` varchar(255) DEFAULT NULL,
   `is_promoted` int(1) DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -227,6 +228,7 @@ VALUES (
     '2024-01-24 19:00:00',
     '2024-02-15 20:00:00',
     NULL,
+    '#f5f5f5',
     'bleu-marine',
     1
   ),
@@ -238,6 +240,7 @@ VALUES (
     'image-1706120804285.png',
     '2024-01-24 19:00:00',
     '2024-06-30 23:59:00',
+    NULL,
     NULL,
     NULL,
     0
@@ -258,7 +261,7 @@ CREATE TABLE `product_color` (
   `color_id` int(11) DEFAULT NULL,
   KEY `product_id` (`product_id`),
   KEY `color_id` (`color_id`),
-  CONSTRAINT `product_color_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`),
+  CONSTRAINT `product_color_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON DELETE CASCADE,
   CONSTRAINT `product_color_ibfk_2` FOREIGN KEY (`color_id`) REFERENCES `color` (`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */
@@ -286,7 +289,7 @@ CREATE TABLE `product_size` (
   `product_id` int(11) DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
   KEY `product_id` (`product_id`),
-  CONSTRAINT `product_size_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`)
+  CONSTRAINT `product_size_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON DELETE CASCADE
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */
 ;
@@ -365,7 +368,7 @@ CREATE TABLE `transactionContent` (
   CONSTRAINT `transactionContent_ibfk_2` FOREIGN KEY (`event_id`) REFERENCES `event` (`id`),
   CONSTRAINT `transactionContent_ibfk_3` FOREIGN KEY (`grade_id`) REFERENCES `grade` (`id`),
   CONSTRAINT `transactionContent_ibfk_4` FOREIGN KEY (`transaction_id`) REFERENCES `transaction` (`transaction_id`),
-  CONSTRAINT `transactionContent_ibfk_5` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`)
+  CONSTRAINT `transactionContent_ibfk_5` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON DELETE SET NULL
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */
 ;
@@ -421,7 +424,7 @@ INSERT INTO `user`
 VALUES (
     'John.Doe.Etu@univ-lemans.fr',
     'johnDoe',
-    '4236441508',
+    '$2b$10$QjnlT.rXlfAE7yKRs0eNZurFZhCvOi2fuXmzJPvDXpIzS1ihjbLDO',
     '21B',
     220,
     0,
@@ -432,7 +435,7 @@ VALUES (
 (
     'admin@univ-lemans.fr',
     'admin',
-    '$2b$10$F3XVm35TiIAJzUjGULqNJ.0M1J09JbF5DtwfrXvf.oPmQGmguFLAS',
+    '$2b$10$f0NgphcSbUaXMywE/r/0BuGHDWvf13qjaDxoKWf7umz9/TDc.UP.e',
     'admin',
     0,
     0,
@@ -505,8 +508,11 @@ LOCK TABLES `xp` WRITE;
 INSERT INTO `xp`
 VALUES ('event', 100), ('grade', 1000);
 /*!40000 ALTER TABLE `xp` ENABLE KEYS */
+
 ;
 UNLOCK TABLES;
+
+
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */
 ;
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */

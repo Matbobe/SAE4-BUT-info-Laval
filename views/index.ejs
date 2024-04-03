@@ -212,7 +212,7 @@
       </p>
       <p>
         Design et développement réalisés par
-        <a href="http://m-legal.fr">Mériadec Legal</a>
+        <a href="http://m-legal.fr" style="text-decoration-line: line-through;">Mériadec Legal</a>
       </p>
     </footer>
   </body>
@@ -306,5 +306,15 @@
     } else {
       document.getElementById("themeSwitcher").innerHTML = "Theme sombre";
     }
+  </script>
+  <script>
+    const changeTest = () => {
+      let text = document.querySelector('#eventsCalendar > div.fc-view-harness.fc-view-harness-passive > div > div > div > div');
+      if (text) {
+        text.innerHTML = 'Aucun évènement trouvé';
+      }
+    };
+
+    setInterval(changeTest, 50);
   </script>
 </html>

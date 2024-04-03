@@ -5,30 +5,38 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/css/style.css" />
+    
+    <link rel="stylesheet" href="https://cdn.metroui.org.ua/current/metro.css">
     <link rel="stylesheet" href="/css/shop.css" />
-
     <script src="https://unpkg.com/ical.js@1.5.0/build/ical.js"></script>
+    <script src="https://cdn.metroui.org.ua/current/metro.js"></script>
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
     <title>ADIIL - Boutique</title>
   </head>
 
   <body data-theme="light">
-    <%- include('header', {cartSize, isLoggedIn}) %> <% if (splashProduct !=
-    'None') { %>
-    <div id="splashBanner" class="longFlex">
-      <div class="desc centerFlex">
-        <h1 id="splashTitle"><%= splashProduct %></h1>
-        <button
-          onclick="location.href='product/<%= splashProduct.replace(` `, `-`) %>'"
-          id="buy"
-          tabindex="2"
-        >
-          Je commande
-        </button>
-      </div>
-      <img class="image" src="/products/<%= splashImage %>" />
+    <%- include('header', {cartSize, isLoggedIn}) %>
+    <div data-role="carousel" 
+      data-height="400px" >
+      <% splashProducts.forEach(function(product) { %>
+        <div class="slide">
+          <div id="splashBanner" class="longFlex" style="background-color:<%= product.background_color %>">
+            <div class="desc centerFlex">
+              <h1 id="splashTitle"><%= product.name %></h1>
+              
+              <button
+                onclick="location.href='product/<%= product.name.replace(` `, `-`) %>'"
+                id="buy"
+                tabindex="2"
+              >
+                Je commande
+              </button>
+            </div>
+            <img class="image" src="/products/<%= product.image %>" />
+          </div>
+        </div>
+      <% }) %>
     </div>
-    <% } %>
     <h3>La boutique</h3>
     <% if (products.length == 0) { %>
     <p>Il n'y a pas de produits disponibles actuellement</p>
@@ -43,7 +51,7 @@
       >
         <div
           class="productImage"
-          style="background-image: url('/products/<%= product.image %>')"
+          style="background-image: url('/products/<%= product.image %>');  background-color:<%= product.background_color %>"
         ></div>
         <div class="productDesc">
           <h4><%= product.name %></h4>
@@ -53,12 +61,14 @@
       </div>
       <% }) %>
     </div>
+    
+    
+    
   </body>
   <script src="/js/logic.js"></script>
   <script>
-    document.getElementById('splashBanner').style.backgroundColor =
-      randomPastelColor(document.getElementById('splashTitle').textContent);
-
+    document.getElementById('splashBanner').style.backgroundColor ="<%=background_color %>";
+    
     document.querySelectorAll('.productImage').forEach((el) => {
       el.parentElement.style.backgroundColor = randomPastelColor(
         el.parentElement.querySelector('h4').textContent

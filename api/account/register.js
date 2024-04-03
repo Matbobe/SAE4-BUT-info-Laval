@@ -1,4 +1,5 @@
 import express from 'express';
+import { roles } from '../../config.js';
 
 const router = express.Router();
 import {
@@ -13,6 +14,8 @@ router.post('', async (req, res) => {
   const {username, password, category} = req.body;
   const email = req.session.email; //since this is the last step of the registration process, the email is stored in the session
 
+  const role = category.toUpperCase();
+
   const [results] = await pool.query(
     "SELECT count(*) as UsernameIdentique FROM user WHERE username = ?",
     [username]
@@ -24,9 +27,8 @@ router.post('', async (req, res) => {
   }
 
   //check if category is valid (!= admin)
-  if (category === 'admin') {
+  if (!roles.includes(role)) {
     res.status(403).json({error: 'Vous ne pouvez pas faire ça'});
-    console.log('Tentative d inscription de classe en admin par ' + email);
     return;
   }
 
@@ -56,7 +58,7 @@ router.post('', async (req, res) => {
   await pool.query(
     'INSERT INTO user (username, password, email, category) VALUES (?, ?, ?, ?)',
 
-    [username, hashedPassword, email, category],
+    [username, hashedPassword, email, role],
     (err) => {
       if (err) {
         console.error('Impossible de créer le compte :', err);
@@ -68,7 +70,7 @@ router.post('', async (req, res) => {
 
   delete enteredPasscodes[email];
 
-  await setSessionItems(req, username, category, email, 0, null);
+  await setSessionItems(req, username, role, email, 0, null);
 
   res.status(200).json({success: true});
 });

@@ -8,164 +8,327 @@
     <link rel="stylesheet" href="/css/shop.css" />
     <link rel="stylesheet" href="/css/adminShop.css" />
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <title>Produits Admin</title>
   </head>
   <body id="adminBody" data-theme="dark">
-    <div>
-      <a href="/" id="backButton" class="adminButton">Retour</a>
-      <h1>Administration des produits</h1>
-      <button
-        id="themeSwitcher"
-        class="headerButton"
-        onclick="switchTheme(this)"
-      >
-        Theme sombre
-      </button>
-      <a href="/admin" class="adminButton">Espace Admin</a>
-    </div>
-    <div class="graphs">
-      <div>
-        <canvas class="lineGraph" id="salesLineGraph"></canvas>
-      </div>
-      <div>
-        <canvas class="barChart" id="salesBarChart"></canvas>
-      </div>
-    </div>
-    <div class="shopLibrary longFlex returnFlex">
-      <form class="productDesc newProduct adminForm" id="addNewProductForm">
-        <h4>Nouveau produit</h4>
-        <!-- Nom, description, prix, image, date debut, date fin, confirm_threashold, couleur, is_promoted -->
-        <input
-          type="text"
-          name="name"
-          id="productName"
-          placeholder="Nom du produit"
-        />
-        <textarea
-          name="description"
-          id="productDescription"
-          placeholder="Description"
-          maxlength="255"
-        ></textarea>
-        <span>
-          <input
-            type="number"
-            name="price"
-            id="productPrice"
-            placeholder="Prix"
-          /><input
-            type="number"
-            name="confirm_threashold"
-            id="productConfirmThreashold"
-            placeholder="Seuil de confirmation"
-          />
-        </span>
-        <span>
-          <input
-            type="file"
-            name="image"
-            id="productImage"
-            placeholder="Image"
-          />
-          <span>
-            <p>Promu</p>
-            <input
-              type="checkbox"
-              name="is_promoted"
-              id="productIsPromoted"
-              placeholder="Promu"
-            />
-          </span>
-        </span>
-        <span>
-          <input
-            type="text"
-            name="color"
-            id="productColor"
-            placeholder="Couleurs séparées par des virgules"
-          />
-          <input
-            type="text"
-            name="sizes"
-            id="productSizes"
-            placeholder="Tailles séparées par des virgules"
-          />
-        </span>
-
-        <span class="verticalflex">
-          <p>Disponible du</p>
-          <span>
-            <input
-              type="datetime-local"
-              name="release_date"
-              id="productReleaseDate"
-              placeholder="Date de sortie"
-            />
-            <p>au</p>
-            <input
-              type="datetime-local"
-              name="expire_date"
-              id="productExpireDate"
-              placeholder="Date d'expiration"
-            />
-          </span>
-        </span>
-
-        <button type="submit" class="adminButton">Ajouter</button>
-      </form>
-
-      <% products.forEach((product) => { %>
-      <div
-        class="product verticalflex"
-        data-promoted="<%= product.is_promoted %>"
-        onclick='location.href="/shop/product/<%= product.name.replace(` `, `-`) %>"'
-      >
-        <div
-          class="productImage"
-          style="
-            background-image: url('/products/<%= product.image %>');
-            --progress: <%= (product.sales_count / product.confirm_threashold) *
-              100 %>%;
-          "
-        ></div>
-        <div class="productDesc">
-          <h4><%= product.name %></h4>
-          <p class="desc"><%= product.description %></p>
-          <p class="price"><%= product.price %>€</p>
-          <button
-            class="adminButton"
-            onclick="deleteProduct('<%= product.id %>'); event.stopPropagation()"
+    <nav>
+      <a href="/" class="retourBtn">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="lucide lucide-chevron-left"
+        >
+          <path d="m15 18-6-6 6-6" />
+        </svg>
+        <p>Accueil</p>
+      </a>
+      <div class="navigation">
+        <a href="/admin">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="lucide lucide-layout-dashboard"
           >
-            Supprimer
-          </button>
-          <button
-            class="adminButton"
-            onclick="editProduct('<%= product.id %>'); event.stopPropagation()"
+            <rect width="7" height="9" x="3" y="3" rx="1" />
+            <rect width="7" height="5" x="14" y="3" rx="1" />
+            <rect width="7" height="9" x="14" y="12" rx="1" />
+            <rect width="7" height="5" x="3" y="16" rx="1" />
+          </svg>
+          <p>Panel</p>
+        </a>
+        <a href="/admin/products">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="lucide lucide-package-search"
           >
-            Modifier
-          </button>
-          <span class="bottomProductSpan">
-            <button
-              class="adminButton"
-              onclick="showSales('<%= product.id %>'); event.stopPropagation()"
+            <path
+              d="M21 10V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l2-1.14"
+            />
+            <path d="m7.5 4.27 9 5.15" />
+            <polyline points="3.29 7 12 12 20.71 7" />
+            <line x1="12" x2="12" y1="22" y2="12" />
+            <circle cx="18.5" cy="15.5" r="2.5" />
+            <path d="M20.27 17.27 22 19" />
+          </svg>
+          <p>Produits</p>
+        </a>
+        <a href="/admin/evenements">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="lucide lucide-calendar-minus-2"
+          >
+            <path d="M8 2v4" />
+            <path d="M16 2v4" />
+            <rect width="18" height="18" x="3" y="4" rx="2" />
+            <path d="M3 10h18" />
+            <path d="M10 16h4" />
+          </svg>
+          <p>Évènements</p>
+        </a>
+        <a href="/admin/config">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="lucide lucide-settings"
+          >
+            <path
+              d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"
+            />
+            <circle cx="12" cy="12" r="3" />
+          </svg>
+          <p>Configuration</p>
+        </a>
+      </div>
+      <div class="bottom">
+        <button
+          id="themeSwitcher"
+          class="headerButton"
+          onclick="switchTheme(this)"
+        >
+          Theme sombre
+        </button>
+        <a
+          class="signoutBtn"
+          onclick="window.location.href = '/api/account/logout'"
+          >Déconnexion</a
+        >
+        <a class="signoutBtn" href="/account">Mon compte</a>
+      </div>
+    </nav>
+    <main class="adminMain">
+      <div id="headerProduct">
+        <h1>Produits</h1>
+        <button onclick="togglePopup()" id="addProductBtn">
+          Ajouter un nouveau produit
+        </button>
+      </div>
+      <div id="productContainer">
+        <div class="graphs" id="addNewProductForm">
+          <div>
+            <canvas class="lineGraph" id="salesLineGraph"></canvas>
+          </div>
+          <div>
+            <canvas class="barChart" id="salesBarChart"></canvas>
+          </div>
+        </div>
+
+        <div class="shopLibrary longFlex returnFlex">
+          <div id="popupForm" class="popup-overlay">
+            <div class="popup-content">
+              <form id="addNewProductForm" onsubmit="addProduct(event)">
+                <h3>Nouveau produit</h3>
+                <div class="formLine">
+                  <input
+                    type="text"
+                    name="name"
+                    id="productName"
+                    placeholder="Nom du produit"
+                  />
+                </div>
+                <div class="formLine">
+                  <textarea
+                    name="description"
+                    id="productDescription"
+                    placeholder="Description"
+                    maxlength="255"
+                  ></textarea>
+                </div>
+                <div class="formLine">
+                  <span>
+                    <input
+                      type="number"
+                      name="price"
+                      id="productPrice"
+                      placeholder="Prix"
+                      min="0"
+                    />
+                    <span>€</span>
+                  </span>
+                  <input
+                    type="number"
+                    name="confirm_threashold"
+                    id="productConfirmThreashold"
+                    placeholder="Seuil de confirmation"
+                    min="0"
+                  />
+                </div>
+                <div class="formLine">
+                  <input
+                    type="file"
+                    name="image"
+                    id="productImage"
+                    placeholder="Image"
+                  />
+                  <span class="inverse">
+                    <p>Promu</p>
+                    <input
+                      type="checkbox"
+                      name="is_promoted"
+                      id="productIsPromoted"
+                      placeholder="Promu"
+                    />
+                  </span>
+                  <span class="inverse">
+                    <p>Couleur du background</p>
+                    <input
+                      type="color"
+                      name="background_color"
+                      id="background_color"
+                      placeholder="color"
+                    />
+                  </span>
+                </div>
+                <div class="formLine">
+                  <input
+                    type="text"
+                    name="color"
+                    id="productColor"
+                    placeholder="Couleurs séparées par des virgules"
+                  />
+                  <input
+                    type="text"
+                    name="sizes"
+                    id="productSizes"
+                    placeholder="Tailles séparées par des virgules"
+                  />
+                </div>
+                <div class="formLine">
+                  <span>
+                    <p>du</p>
+                    <input
+                      type="datetime-local"
+                      name="release_date"
+                      id="productReleaseDate"
+                      placeholder="Date de sortie"
+                    />
+                  </span>
+                  <span>
+                    <p>au</p>
+                    <input
+                      type="datetime-local"
+                      name="expire_date"
+                      id="productExpireDate"
+                      placeholder="Date d'expiration"
+                    />
+                  </span>
+                </div>
+
+                <div class="submitBtns">
+                  <button class="close-btn" onclick="togglePopup()">
+                    Annuler
+                  </button>
+                  <button type="submit" class="adminButton">Ajouter</button>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div id="productListContainer">
+            <% products.forEach((product) => { %>
+            <div
+              class="product verticalflex"
+              data-promoted="<%= product.is_promoted %>"
+              onclick='location.href="/shop/product/<%= product.name.replace(` `, `-`) %>"'
             >
-              Voir les achats
-            </button>
-            <button
-              class="adminButton addBuyer"
-              onclick="addBuyerToEvent('<%= product.id %>'); event.stopPropagation()"
-            >
-              +
-            </button>
-          </span>
+              <div
+                class="productImage"
+                style="
+                  background-image: url('/products/<%= product.image %>');
+                  background-color: <%= product.background_color %>;
+                  --progress: <%=
+                    (product.sales_count / product.confirm_threashold) * 100 %>%;
+                "
+              ></div>
+              <div class="productDesc">
+                <h4><%= product.name %></h4>
+                <p class="desc"><%= product.description %></p>
+                <p class="price"><%= product.price %>€</p>
+                <button
+                  class="adminButton"
+                  onclick="deleteProduct('<%= product.id %>'); event.stopPropagation()"
+                >
+                  Supprimer
+                </button>
+                <button
+                  class="adminButton"
+                  onclick="editProduct('<%= product.id %>'); event.stopPropagation()"
+                >
+                  Modifier
+                </button>
+                <span class="bottomProductSpan">
+                  <button
+                    class="adminButton"
+                    onclick="showSales('<%= product.id %>'); event.stopPropagation()"
+                  >
+                    Voir les achats
+                  </button>
+                  <button
+                    class="adminButton addBuyer"
+                    onclick="addBuyerToEvent('<%= product.id %>'); event.stopPropagation()"
+                  >
+                    +
+                  </button>
+                </span>
+              </div>
+            </div>
+            <% }) %>
+          </div>
         </div>
       </div>
-      <% }) %>
-    </div>
+    </main>
   </body>
   <script src="/js/logic.js"></script>
   <script src="/js/adminProducts.js"></script>
+  <script>
+    function togglePopup() {
+      var popup = document.getElementById("popupForm");
+      popup.style.display = popup.style.display === "none" ? "flex" : "none";
+    }
+
+    // Pour fermer le popup si l'utilisateur clique en dehors de celui-ci
+    window.onclick = function (event) {
+      var popup = document.getElementById("popupForm");
+      if (event.target == popup) {
+        popup.style.display = "none";
+      }
+    };
+  </script>
 </html>

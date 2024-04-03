@@ -41,6 +41,7 @@ router.post('', upload.single('image'), async (req, res) => {
       confirm_threashold,
       is_promoted,
       sizes,
+      background_color,
       colors,
     } = req.body;
 
@@ -173,7 +174,7 @@ router.post('', upload.single('image'), async (req, res) => {
       //modify product without image
       await pool
         .query(
-          'UPDATE product SET name = ?, description = ?, price = ?, release_date = ?, expire_date = ?, confirm_threashold = ?, is_promoted = ?, color = ? WHERE id = ?',
+          'UPDATE product SET name = ?, description = ?, price = ?, release_date = ?, expire_date = ?, confirm_threashold = ?, is_promoted = ?,background_color=?, color = ? WHERE id = ?',
           [
             name,
             description,
@@ -182,6 +183,7 @@ router.post('', upload.single('image'), async (req, res) => {
             expire_date,
             confirm_threashold,
             is_promoted,
+            background_color,
             color,
             id,
           ]

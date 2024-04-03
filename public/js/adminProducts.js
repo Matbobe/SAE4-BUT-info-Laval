@@ -31,7 +31,21 @@ function closePopup() {
 }
 
 function deleteProduct(id) {
-  console.log(id);
+  fetch('/api/admin/product/delete', {
+    method: 'POST',
+    body: JSON.stringify({ id }),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((res) => {
+      if (res.status == 200) {
+        userAlertGood('Produit supprimé');
+        location.reload(true);
+      } else {
+        userAlert('Erreur lors de la suppression du produit');
+      }
+    });
 }
 
 function modifyProduct(e) {
@@ -76,6 +90,7 @@ function editProduct(id) {
   });
 
   const popupTitle = document.createElement('h3');
+  popupTitle.style.margin = '0';
   popupTitle.innerText = 'Modifier "' + product.name + '"';
   popupTitle.classList.add('popupTitle');
   const popupClose = document.createElement('button');
@@ -83,8 +98,13 @@ function editProduct(id) {
   popupClose.setAttribute('onclick', 'closePopup()');
   popupClose.classList.add('adminStyleButton');
   popupClose.classList.add('closeButton');
-  popupContent.appendChild(popupClose);
-  popupContent.appendChild(popupTitle);
+  const divHeader = document.createElement('div');
+  divHeader.style.display = 'flex';
+  divHeader.style.justifyContent = 'space-between';
+  divHeader.style.alignItems = 'center';
+  divHeader.appendChild(popupTitle);
+  divHeader.appendChild(popupClose);
+  popupContent.appendChild(divHeader);
 
   const editProductForm = document.createElement('form');
   editProductForm.classList.add('productDesc');
@@ -254,6 +274,18 @@ function editProduct(id) {
   promotedSpan.appendChild(promotedInput);
   editProductForm.appendChild(promotedSpan);
 
+  const backgroundColorSpan = document.createElement('span');
+  backgroundColorSpan.innerHTML = '<p>Couleur du background</p>';
+  backgroundColorSpan.classList.add('backgroundColorSpan');
+
+  const background_color_input = document.createElement('input');
+  background_color_input.setAttribute('type', 'color');
+  background_color_input.setAttribute('name', 'background_color');
+  background_color_input.setAttribute('value', product.background_color);
+
+  backgroundColorSpan.appendChild(background_color_input);
+  editProductForm.appendChild(backgroundColorSpan);
+
   const submitButton = document.createElement('button');
   submitButton.setAttribute('type', 'submit');
   submitButton.classList.add('adminButton');
@@ -354,8 +386,7 @@ function showSales(id) {
 function addProduct(e) {
   e.preventDefault();
   //get the form data
-  const form = document.getElementById('addNewProductForm');
-  const formData = new FormData(form);
+  const formData = new FormData(e.target);
 
   //send the form data
   fetch('/api/admin/product/add', {

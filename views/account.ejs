@@ -54,7 +54,11 @@
         </div>
         <div id="personnalInfo">
           <p id="identityP"></p>
-          <button onclick="changerClasse()">Modifier</button>
+            <% if (category !== 'admin') { %>
+            <button onclick="changerClasse()">Modifier</button>
+            <% } else { %>
+            <button disabled style="background-color: #666; cursor: not-allowed;">Modifier</button>
+            <% } %>
           <p>Adresse mail : <%= email %></p>
           <span></span>
           <p>Mot de passe : ********</p>

@@ -5,7 +5,9 @@ import { pool } from "../server.js";
 router.get("", async (req, res) => {
   var splashProduct;
   var splashImage;
+  var background_color;
   var products = [];
+  var splashProducts = [];
 
   //get the splash product (product.is_promoted = 1)
 
@@ -14,11 +16,15 @@ router.get("", async (req, res) => {
       "SELECT * FROM product WHERE is_promoted = 1 ORDER BY release_date DESC"
     );
     if (splashResults.length === 0) {
+      splashProducts = "None";
       splashProduct = "None";
       splashImage = "None";
+      background_color="None";
     } else {
+      splashProducts = splashResults;
       splashProduct = splashResults["0"].name;
       splashImage = splashResults["0"].image;
+      background_color = splashResults["0"].background_color;
     }
 
     //get all products
@@ -39,8 +45,10 @@ router.get("", async (req, res) => {
 
     isLoggedIn: req.session.isLoggedIn,
     isAdmin: req.session.isAdmin,
+    splashProducts: splashProducts,
     splashProduct: splashProduct,
     splashImage: splashImage,
+    background_color: background_color,
     products: products,
   });
 });
