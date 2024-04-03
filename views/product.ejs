@@ -29,7 +29,16 @@
           <option value="<%= color %>"><%= color %></option>
           <% }) %>
         </select>
-        <% } if(sizes.length > 0) { %>
+        <% } %>
+        <label for="quantitySelector">Quantité :</label>
+        <select name="quantity" id="quantitySelector">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+        <% if(sizes.length > 0) { %>
         <label for="sizeSelector">Taille :</label>
         <select name="size" id="sizeSelector">
           <% sizes.forEach((size)=> { %>
@@ -68,50 +77,71 @@
   </body>
   <script src="/js/logic.js"></script>
   <script>
-    document.getElementById('img').style.backgroundColor = randomPastelColor(
-      '<%= product.name %>'
+    document.getElementById("img").style.backgroundColor = randomPastelColor(
+      "<%= product.name %>"
     );
 
-    document.getElementById('buy').style.backgroundColor = randomPastelColor(
-      '<%= product.name %>'
+    document.getElementById("buy").style.backgroundColor = randomPastelColor(
+      "<%= product.name %>"
     );
 
-    const date_expire = '<%= product.expire_date %>';
+    document
+      .getElementById("quantitySelector")
+      .addEventListener("change", function () {
+        var basePrice = "<%= product.price %>";
+        var quantity = document.getElementById("quantitySelector").value;
+        var totalPrice = basePrice * quantity;
+        document.querySelector(".price").textContent = totalPrice + "€";
+        localStorage.setItem(
+          "selectedQuantity_" + "<%= product.id %>",
+          quantity
+        );
+        console.log(
+          localStorage.getItem("selectedQuantity_" + "<%= product.id %>")
+        );
+      });
+
+    const date_expire = "<%= product.expire_date %>";
     const date = new Date(date_expire);
-    document.querySelector('.available_until').innerHTML =
-      "Disponible jusqu'au " + date.toLocaleDateString('fr-FR');
+    document.querySelector(".available_until").innerHTML =
+      "Disponible jusqu'au " + date.toLocaleDateString("fr-FR");
 
     function addToCart() {
-      var size = '';
-      if (document.getElementById('sizeSelector')) {
-        size = document.getElementById('sizeSelector').value;
+      var size = "";
+      if (document.getElementById("sizeSelector")) {
+        size = document.getElementById("sizeSelector").value;
       }
-      if (document.getElementById('colorSelector')) {
-        const color = document.getElementById('colorSelector').value;
+      var quantity = 1;
+      if (document.getElementById("quantitySelector")) {
+        quantity = document.getElementById("quantitySelector").value;
+      }
+
+      if (document.getElementById("colorSelector")) {
+        const color = document.getElementById("colorSelector").value;
         console.log(color);
         console.log(size);
-        size = size.length != 0 ? size + ' ' + color : color;
+        size = size.length != 0 ? size + " " + color : color;
       }
-      const id = parseInt('<%= product.id %>');
-      const data = {size, id};
-      fetch('/addItemToCartPort', {
-        method: 'POST',
+      const id = parseInt("<%= product.id %>");
+      const data = { size, id, quantity };
+      fetch("/addItemToCartPort", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
-          'item-type': 'product',
+          "Content-Type": "application/json",
+          "item-type": "product",
         },
         body: JSON.stringify(data),
       })
         .then((res) => res.json())
         .then((data) => {
           if (data.success) {
-            location.href = '/pay';
+            location.href = "/pay";
           } else {
-            userAlert('Une erreur est survenue : ' + data.message);
+            userAlert("Une erreur est survenue : " + data.message);
           }
         })
         .catch((err) => {
-          userAlert('Une erreur est survenue : ' + err);
+          userAlert("Une erreur est survenue : " + err);
         });
     }
   </script>
