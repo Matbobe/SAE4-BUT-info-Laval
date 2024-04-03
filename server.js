@@ -140,6 +140,7 @@ app.get("/leaderboard", async (req, res) => {
   res.render("leaderboard", {
     cartSize: req.session.cart && req.session.cart.length,
     isLoggedIn: req.session.isLoggedIn,
+    isAdmin: req.session.isAdmin,
   });
 });
 
