@@ -179,7 +179,10 @@ body#adminBody button:disabled {
 main.adminMain {
   padding: 1em;
 }
-
+a{
+  text-decoration: none;
+  color: var(--important-text-color)!important;
+}
 main.adminMain > #eventContainer {
   height: 80vh;
   overflow-y: scroll;
