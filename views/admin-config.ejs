@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"></script>
+
+    <title>Paneau Admin</title>
+  </head>
+  <body id="adminBody" data-theme="dark">
+    <nav>
+      <a href="/" class="retourBtn">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="lucide lucide-chevron-left"
+        >
+          <path d="m15 18-6-6 6-6" />
+        </svg>
+        <p>Accueil</p>
+      </a>
+      <div class="navigation">
+        <a href="/admin">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="lucide lucide-layout-dashboard"
+          >
+            <rect width="7" height="9" x="3" y="3" rx="1" />
+            <rect width="7" height="5" x="14" y="3" rx="1" />
+            <rect width="7" height="9" x="14" y="12" rx="1" />
+            <rect width="7" height="5" x="3" y="16" rx="1" />
+          </svg>
+          <p>Panel</p>
+        </a>
+        <a href="/admin/products">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="lucide lucide-package-search"
+          >
+            <path
+              d="M21 10V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l2-1.14"
+            />
+            <path d="m7.5 4.27 9 5.15" />
+            <polyline points="3.29 7 12 12 20.71 7" />
+            <line x1="12" x2="12" y1="22" y2="12" />
+            <circle cx="18.5" cy="15.5" r="2.5" />
+            <path d="M20.27 17.27 22 19" />
+          </svg>
+          <p>Produits</p>
+        </a>
+        <a href="/admin/evenements">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="lucide lucide-calendar-minus-2"
+          >
+            <path d="M8 2v4" />
+            <path d="M16 2v4" />
+            <rect width="18" height="18" x="3" y="4" rx="2" />
+            <path d="M3 10h18" />
+            <path d="M10 16h4" />
+          </svg>
+          <p>Évènements</p>
+        </a>
+        <a href="/admin/config">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="lucide lucide-settings"
+          >
+            <path
+              d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"
+            />
+            <circle cx="12" cy="12" r="3" />
+          </svg>
+          <p>Configuration</p>
+        </a>
+      </div>
+      <div class="bottom">
+        <a
+          class="signoutBtn"
+          onclick="window.location.href = '/api/account/logout'"
+          >Déconnexion</a
+        >
+        <a class="signoutBtn" href="/account">Mon compte</a>
+      </div>
+    </nav>
+    <main class="adminMain">
+      <h1>Configuration</h1>
+      <div id="configContainer">
+        <div>
+    <div class="adminItem" id="changePrice">
+      <h3>Prix des grades :</h3>
+      <div>
+        <form
+          id="changePriceForm"
+          action="/admin/changePrice"
+          method="POST"
+          style="display: flex; flex-direction: column"
+          class="adminForm"
+        >
+          <span
+            ><label for="iron">Iron</label>
+            <input
+              type="number"
+              name="ironprice"
+              id="iron"
+              class="gradeprice"
+              disabled
+              value="<%- ironprice %>"
+            />
+            <button type="button" onclick="enableInput('iron')">
+              Modifier
+            </button>
+          </span>
+          <span>
+            <label for="gold">Gold</label>
+            <input
+              type="number"
+              name="goldprice"
+              id="gold"
+              class="gradeprice"
+              disabled
+              value="<%- goldprice %>"
+            />
+            <button type="button" onclick="enableInput('gold')">
+              Modifier
+            </button>
+          </span>
+          <span>
+            <label for="diamant">Diamant</label>
+            <input
+              type="number"
+              name="diamantprice"
+              id="diamant"
+              class="gradeprice"
+              disabled
+              value="<%- diamantprice %>"
+            />
+            <button type="button" onclick="enableInput('diamant')">
+              Modifier
+            </button>
+          </span>
+          <button type="submit" style="display: none" id="validateForm">
+            Valider
+          </button>
+        </form>
+      </div>
+    </div>
+    <div class="adminItem">
+      <h3>Ventes de grades</h3>
+      <div id="gradesSales"></div>
+    </div>
+    
+    <div class="adminItem" id="changeXp">
+      <h3>Quantité d'xp que rapporte un event</h3>
+
+      <form
+        style="display: flex; flex-direction: column"
+        id="changeXpForm"
+        class="adminForm"
+      >
+        <span>
+          <label for="xpAmount">Xp</label>
+          <input
+            type="number"
+            name="xpAmount"
+            id="xpAmount"
+            class="gradeprice xpamount"
+            value="<%- xpAmount %>"
+          />
+          <button type="submit">Valider</button>
+        </span>
+      </form>
+      <h3>Seuil de renouvellement du grade</h3>
+      <form
+        style="display: flex; flex-direction: column"
+        id="changeXpThresholdForm"
+        class="adminForm"
+      >
+        <span>
+          <label for="xpThreshold">Xp</label>
+          <input
+            type="number"
+            name="xpThreshold"
+            id="xpThreshold"
+            class="gradeprice xpamount"
+            value="<%- xpThreshold %>"
+          />
+          <button type="submit">Valider</button>
+        </span>
+      </form>
+    </div>
+    <div class="adminItem" id="sqlAdminItem">
+      <h3>Requêtes SQL</h3>
+      <a href="https://dbdiagram.io/d/647f713a722eb7749480d0c7"
+        >Lien vers le diagramme de la BDD</a
+      >
+      <form
+        style="display: flex; flex-direction: column"
+        id="sqlForm"
+        class="adminForm"
+      >
+        <span>
+          <label for="sql">SQL</label>
+          <input
+            name="sql"
+            id="sql"
+            type="text"
+            placeholder="SELECT * FROM users"
+          ></input>
+          <button type="submit">Envoyer</button>
+        </span>
+        <textarea
+          name="sqlResults"
+          disabled
+          id="sqlResults"
+          cols="30"
+          rows="5"
+          placeholder="Résultats de la requête"
+        ></textarea>
+      </form>
+    </div>
+    <div onload="showBannerInfo(this)" class="adminItem" id="callToActionBanner">
+      <h3>Bannière publicitaire</h3>
+      <form class="adminForm" id="changeBanner">
+        <span>
+          <span>
+            <input type="checkbox" id="showBanner" name="showBanner">
+            <label for="showBanner">Afficher</label>
+          </span>
+         <input type="color" id="bannerColor" name="bannerColor" value="#F55">
+        </span>
+        
+        
+        <input type="text" id="texteToShow" name="texteToShow" placeholder="Texte à afficher">
+        <input type="text" id="link" name="link" placeholder="Lien">
+        <input type="text" id="linkBody" name="linkBody" placeholder="Texte du lien">
+
+        <input type="submit" value="Valider" class="adminStyleButton">
+        
+      </form>
+    </div>
+      </div></div>
+    </main>
+  </body>
+  <script>
+    const extractNameFromEmail = (email) => {
+      const parts = email.split("@")[0].split(".");
+      const firstName = parts[0];
+      const lastName = parts[1];
+
+      return firstName + " " + lastName;
+    };
+
+    function searchUser(eventId) {
+      //pop up
+      const popup = document.createElement("div");
+      popup.classList.add("popup");
+      popup.setAttribute("id", "popup");
+      const popupContent = document.createElement("div");
+      popupContent.classList.add("popupContent");
+
+      const popupTitle = document.createElement("h3");
+      popupTitle.classList.add("popupTitle");
+      popupTitle.innerText = "Ajouter un participant";
+      const popupInput = document.createElement("input");
+      popupInput.setAttribute("type", "text");
+      popupInput.setAttribute("id", "searchUserInput");
+      popupInput.setAttribute("name", "searchUserInput");
+      popupInput.classList.add("adminStyleInput");
+      popupInput.setAttribute("placeholder", "Rechercher un utilisateur");
+      popupInput.addEventListener("input", (e) => {
+        const value = e.target.value;
+        if (value.length > 0) {
+          fetch("/api/admin/searchUser", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ value, eventId }),
+          })
+            .then((res) => res.json())
+            .then((data) => {
+              showUsers(data.results, data.inscriptions, eventId);
+            });
+        } else {
+          document.getElementById("searchUserResults").innerHTML = "";
+        }
+      });
+      const popupClose = document.createElement("button");
+      popupClose.innerText = "Fermer";
+      popupClose.setAttribute("onclick", "closePopup()");
+      popupClose.classList.add("adminStyleButton");
+      popupClose.classList.add("closeButton");
+      popupContent.appendChild(popupTitle);
+      popupContent.appendChild(popupInput);
+      popupContent.appendChild(popupClose);
+      var searchUserResults = document.createElement("div");
+      searchUserResults.setAttribute("id", "searchUserResults");
+      popupContent.appendChild(searchUserResults);
+
+      popup.appendChild(popupContent);
+      document.body.appendChild(popup);
+
+      popupInput.focus();
+    }
+
+    function closePopup() {
+      document.getElementById("popup").remove();
+    }
+
+    function showUsers(users, inscriptions, eventId) {
+      searchUserResults = document.getElementById("searchUserResults");
+      searchUserResults.innerHTML = "";
+
+      if (users.length === 0) {
+        const userContainer = document.createElement("div");
+        userContainer.classList.add("userContainer");
+
+        const userName = document.createElement("p");
+        userName.innerText = "Aucun utilisateur trouvé";
+        const userButton = document.createElement("button");
+        userButton.innerText = "Créer un utilisateur";
+        userButton.classList.add("adminStyleButton");
+        userButton.setAttribute("onclick", `createUser('${eventId}')`);
+        userContainer.appendChild(userName);
+        userContainer.appendChild(userButton);
+
+        searchUserResults.appendChild(userContainer);
+      }
+
+      users.forEach((user) => {
+        const userContainer = document.createElement("div");
+        userContainer.classList.add("userContainer");
+
+        const userInfo = user.email + " (" + user.username + ")";
+
+        const userName = document.createElement("p");
+        userName.innerText = userInfo;
+        userContainer.appendChild(userName);
+
+        if (inscriptions.includes(user.email)) {
+          const userAdded = document.createElement("p");
+          userAdded.innerText = "Inscrit";
+          userContainer.appendChild(userAdded);
+        } else {
+          const userButton = document.createElement("button");
+          userButton.innerText = "Ajouter";
+          userButton.classList.add("adminStyleButton");
+          userButton.setAttribute(
+            "onclick",
+            `addUser('${user.email}', '${eventId}')`
+          );
+          userContainer.appendChild(userButton);
+        }
+
+        searchUserResults.appendChild(userContainer);
+      });
+    }
+
+    function createUser(eventId) {
+      var email = prompt("Entrez l'email");
+      if (!email || email === "") return;
+      addUser(email, eventId);
+    }
+
+    function addUser(email, eventId) {
+      var areYouSure = confirm(
+        "Voulez-vous vraiment ajouter cet utilisateur ?"
+      );
+      if (!areYouSure) return;
+
+      const xp = prompt(
+        "Entrez la quantité d'xp que rapporte cet event à cet utilisateur"
+      );
+
+      if (email) {
+        fetch("/api/admin/addUser", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email, eventId, xp }),
+        }).then((res) => {
+          if (res.status === 200) {
+            userAlertGood(
+              "Utilisateur ajouté. Rafraichir la page pour voir les changements"
+            );
+          } else {
+            userAlert("Erreur lors de l'ajout de l'utilisateur");
+          }
+        });
+      }
+    }
+
+    function removeParticipant(email, eventId) {
+      var areYouSure = confirm(
+        "Voulez-vous vraiment supprimer cet utilisateur ?"
+      );
+      if (!areYouSure) return;
+
+      fetch("/api/admin/removeUser", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, eventId }),
+      }).then((res) => {
+        if (res.status === 200) {
+          userAlertGood(
+            "Utilisateur supprimé. Rafraichir la page pour voir les changements"
+          );
+        } else {
+          userAlert("Erreur lors de la suppression de l'utilisateur");
+        }
+      });
+    }
+
+    function expand(eventId) {
+      console.log(`[data-date="${eventId}"]`);
+      const eventContainer = document.querySelector(
+        ".eventContainer.event" + eventId
+      );
+      const eventParticipants = eventContainer.querySelector("ul");
+      const expandButton = eventContainer.querySelector(".expandButton");
+      if (eventParticipants.style.display === "none") {
+        eventParticipants.style.display = "flex";
+        expandButton.innerText = "Cacher";
+      } else {
+        eventParticipants.style.display = "none";
+        expandButton.innerText = "Voir";
+      }
+    }
+
+    function enableInput(elem) {
+      document.getElementById(elem).removeAttribute("disabled");
+      document.getElementById("validateForm").style.display = "block";
+
+      //get the button that is sibbling to the input
+      const button = document.getElementById(elem).nextElementSibling;
+
+      button.innerText = "Annuler";
+      button.setAttribute("onclick", `disableInput('${elem}')`);
+    }
+
+    function disableInput(elem) {
+      document.getElementById(elem).setAttribute("disabled", true);
+      document.getElementById("validateForm").style.display = "none";
+
+      //get the button that is sibbling to the input
+      const button = document.getElementById(elem).nextElementSibling;
+
+      button.innerText = "Modifier";
+      button.setAttribute("onclick", `enableInput('${elem}')`);
+    }
+
+    document.querySelectorAll(".gradeprice:not(.xpamount)").forEach((elem) => {
+      elem.setAttribute("disabled", true);
+    });
+
+    document
+      .getElementById("changePriceForm")
+      .addEventListener("submit", (e) => {
+        e.preventDefault();
+        const ironprice = document.getElementById("iron").value;
+        const goldprice = document.getElementById("gold").value;
+        const diamantprice = document.getElementById("diamant").value;
+        const data = {
+          ironprice,
+          goldprice,
+          diamantprice,
+        };
+        fetch("/api/admin/changeGradePrices", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }).then((res) => {
+          if (res.status === 200) {
+            userAlert("Prix modifiés");
+            window.location.reload(true);
+          } else {
+            userAlert("Erreur lors de la modification des prix");
+          }
+        });
+      });
+
+    document.getElementById("changeXpForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+        const xpAmount = document.getElementById("xpAmount").value;
+        const xpThreshold = document.getElementById("xpThreshold").value;
+        const data = {
+          xpAmount,
+          xpThreshold,
+        };
+        fetch("/api/admin/changeXpThreshold", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }).then((res) => {
+          if (res.status === 200) {
+            userAlert("La quantité d'xp à été modifiée");
+            window.location.reload(true);
+          } else if (res.status === 400) {
+            userAlert("La quantité d'xp doit être un nombre");
+          } else {
+            userAlert("Erreur lors de la modification des xp");
+          }
+        });
+    });
+
+    document
+      .getElementById("changeXpThresholdForm")
+      .addEventListener("submit", (e) => {
+        e.preventDefault();
+        const xpAmount = document.getElementById("xpAmount").value;
+        const xpThreshold = document.getElementById("xpThreshold").value;
+        const data = {
+          xpAmount,
+          xpThreshold,
+        };
+        fetch("/api/admin/changeXpThreshold", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }).then((res) => {
+          if (res.status === 200) {
+            userAlert("La quantité d'xp à été modifiée");
+            window.location.reload(true);
+          } else if (res.status === 400) {
+            userAlert("La quantité d'xp doit être un nombre");
+          } else {
+            console.log(res.status);
+            userAlert("Erreur lors de la modification des xp");
+          }
+        });
+      });
+
+    document.getElementById("sqlForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+      const sql = document.getElementById("sql").value;
+      const data = {
+        sql,
+      };
+      fetch("/api/admin/sql", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          //get the 'results' key from the data object
+          document.getElementById("sqlResults").value = JSON.stringify(
+            data.results
+          );
+          document.getElementById("sqlResults").style.width = "fit-content";
+        });
+    });
+
+    fetch("/api/admin/getGradesSales")
+      .then((res) => res.json())
+      .then((data) => {
+        showGradesSales(data.grades);
+      });
+
+    function showGradesSales(gradeResults) {
+      gradesSales = document.getElementById("gradesSales");
+      gradesSales.innerHTML = "";
+
+      if (gradeResults.length === 0) {
+        const noSales = document.createElement("p");
+        noSales.innerText = "Aucune vente";
+        gradesSales.appendChild(noSales);
+      }
+
+      gradeResults.forEach((grade) => {
+        const gradeName = grade.name;
+        const gradeSales = grade.sales;
+
+        const gradeContainer = document.createElement("div");
+        gradeContainer.classList.add("gradeSalesContainer");
+
+        const gradeNameP = document.createElement("p");
+        gradeNameP.innerText = gradeName;
+
+        const gradeSalesP = document.createElement("p");
+        gradeSalesP.innerText = gradeSales;
+
+        gradeContainer.appendChild(gradeNameP);
+        gradeContainer.appendChild(gradeSalesP);
+
+        gradesSales.appendChild(gradeContainer);
+      });
+    }
+
+    function generatePDF(eventId) {
+      const users = document.querySelectorAll(
+        ".eventContainer.event" + eventId + " ul li span p"
+      );
+
+      // Choose the element that our invoice is rendered in.
+      const title = document.createElement("h1");
+      title.classList.add("pdfText");
+      var eventName = document.querySelector(
+        ".eventContainer.event" + eventId + " h3"
+      ).innerText;
+      eventName = eventName.split(" - ")[0];
+      title.innerHTML = "Inscriptions pour " + eventName + " :";
+
+      const container = document.createElement("div");
+      container.classList.add("pdfContainer");
+      container.appendChild(title);
+
+      users.forEach((element) => {
+        const textElement = document.createElement("p");
+        textElement.innerHTML = "☐ " + element.innerText;
+        textElement.classList.add("pdfText");
+        container.appendChild(textElement);
+      });
+
+      //set the margin and the font size
+      const opt = {
+        margin: 0.3,
+        filename: `inscriptions_${eventName}.pdf`,
+        image: { type: "jpeg", quality: 0.98 },
+        html2canvas: { scale: 2 },
+        jsPDF: { unit: "in", format: "letter", orientation: "portrait" },
+      };
+
+      // Choose the element and save the PDF for our user.
+      html2pdf().from(container).set(opt).save();
+    }
+
+    document
+      .getElementById("changeBanner")
+      .addEventListener("submit", function (e) {
+        e.preventDefault();
+        const showBanner = document.getElementById("showBanner").checked;
+        const color = document.getElementById("bannerColor").value;
+        const textToShow = document.getElementById("texteToShow").value;
+        const link = document.getElementById("link").value;
+        const linkBody = document.getElementById("linkBody").value;
+        const data = {
+          showBanner,
+          color,
+          textToShow,
+          link,
+          linkBody,
+        };
+        fetch("/api/admin/changeBanner", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }).then((res) => {
+          if (res.status === 200) {
+            userAlertGood("Bannière modifiée");
+          } else {
+            userAlert("Erreur lors de la modification de la bannière");
+          }
+        });
+      });
+
+    function showBannerInfo(element) {
+      fetch("/api/getBannerInfo")
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.isShown) {
+            element.getElementById("showBanner").checked = true;
+          } else {
+            element.getElementById("showBanner").checked = false;
+          }
+          element.querySelector("#bannerColor").value = data.color;
+          element.querySelector("#texteToShow").value = data.textToShow;
+          element.querySelector("#link").value = data.link;
+          element.querySelector("#linkBody").value = data.linkBody;
+        });
+    }
+
+    showBannerInfo(document);
+  </script>
+  <script src="/js/logic.js"></script>
+</html>

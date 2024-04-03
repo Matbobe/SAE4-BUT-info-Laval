@@ -174,6 +174,16 @@ async function getGradePrices() {
   diamantprice = gradesResults[2].price;
 }
 
+async function getXPQuantite() {
+  // Récupérer les prix des catégories de la base de données (table xp)
+  const xpQuery = "SELECT * FROM xp";
+  const [xpResults] = await pool.query(xpQuery);
+
+  // eventxp = xpResults[0].quantite;
+  // gradexp = xpResults[1].quantite;
+  return { xpResults };
+}
+
 async function getUserGrade(email) {
   const [gradeResults] = await pool.query(
     "SELECT grade FROM user WHERE user.email = ?",
@@ -710,6 +720,7 @@ export {
   ironprice,
   goldprice,
   diamantprice,
+  getXPQuantite,
   generateEventId,
   checkAndAddEventToDatabase,
   readdirSync,
