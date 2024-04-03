@@ -75,9 +75,9 @@ function changerClasse() {
         setTimeout(() => {
           window.location.reload();
         }, 1000);
-      } else if (res.status === 403) {
+      } else {
         userAlert(
-          'Vous ne pouvez pas faire ça. Arrêtez ou vous serez signalé au département'
+          'Classe invalide, veuillez entrer une classe valide (ex: 11A, 21B, 12C, 32D)'
         );
       }
     });
