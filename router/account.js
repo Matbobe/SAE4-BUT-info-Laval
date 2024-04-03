@@ -1,4 +1,4 @@
-import express from 'express';
+import express from "express";
 const router = express.Router();
 import {
   getGradePrices,
@@ -6,22 +6,22 @@ import {
   goldprice,
   diamantprice,
   pool,
-} from '../server.js';
+} from "../server.js";
 
-router.get('', async (req, res) => {
+router.get("", async (req, res) => {
   if (!req.session.isLoggedIn) {
-    res.redirect('/login');
+    res.redirect("/login");
     return;
   }
 
   //get the user's grade
   const [gradeResults] = await pool.query(
-    'SELECT grade FROM user WHERE user.email = ?',
+    "SELECT grade FROM user WHERE user.email = ?",
     [req.session.email],
     (err) => {
       if (err) {
-        console.error('Impossible de récupérer le grade :', err);
-        res.status(500).json({error: 'Impossible de récupérer le grade'});
+        console.error("Impossible de récupérer le grade :", err);
+        res.status(500).json({ error: "Impossible de récupérer le grade" });
         return;
       }
     }
@@ -32,11 +32,11 @@ router.get('', async (req, res) => {
   }
 
   if (gradeResults.length === 0) {
-    var grade = 'None';
-  } else var grade = gradeResults['0'].grade;
+    var grade = "None";
+  } else var grade = gradeResults["0"].grade;
   req.session.grade = grade;
 
-  res.render('account', {
+  res.render("account", {
     username: req.session.username,
     category: req.session.category,
     email: req.session.email,
@@ -46,6 +46,7 @@ router.get('', async (req, res) => {
     ironprice: ironprice,
     goldprice: goldprice,
     diamantprice: diamantprice,
+    isAdmin: req.session.isAdmin,
   });
 });
 export default router;

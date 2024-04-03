@@ -24,9 +24,13 @@
         <a class="vanLink" onclick="setActiveNav(this)" href="#hspacer3"
           >Grade</a
         >
+        <% if (isAdmin) { %>
+          <a href="/admin/">Admin</a>
+        <% } %>
         <a class="vanLink" onclick="setActiveNav(this)" href="#hspacer4"
           >Inscriptions</a
         >
+        
 
         <button id="themeSwitcher" onclick="switchTheme(this)">
           Theme sombre
