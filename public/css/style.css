@@ -135,8 +135,8 @@ body#adminBody > nav > .bottom {
 }
 
 body#adminBody > nav > .bottom > a {
-    padding-left: 16px;
-    cursor: pointer;
+  padding-left: 16px;
+  cursor: pointer;
 }
 
 body#adminBody button:disabled {
@@ -144,44 +144,82 @@ body#adminBody button:disabled {
   cursor: default;
 }
 
+.adminMain .quickAccess {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  gap: 1em;
+  width: 100%;
+  padding: 0 1em;
+}
+
+.adminMain .quickAccess > a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 25%;
+  gap: 0.5em;
+  padding: 1em;
+  border-radius: 4px;
+  background-color: var(--background-color);
+  box-shadow: 0 0 3px var(--header-shadow);
+  transition: background-color 0.1s;
+}
+
+.adminMain .quickAccess p {
+  margin: 0;
+}
+
+.adminMain .quickAccess > a:hover {
+  background-color: var(--secondary-background-color);
+}
+
 main.adminMain {
-    padding: 1em;
+  padding: 1em;
 }
 a{
   text-decoration: none;
   color: var(--important-text-color)!important;
 }
 main.adminMain > #eventContainer {
-    height: 80vh;
-    overflow-y: scroll;
-    display: flex;
-    flex-direction: column;
-    gap: 1em;
-}
-
-main.adminMain > #configContainer {
-    height: 80vh;
-    overflow-y: scroll;
-}
-
-main.adminMain > #configContainer > div {
+  height: 80vh;
+  overflow-y: scroll;
   display: flex;
   flex-direction: column;
   gap: 1em;
 }
 
+main.adminMain > #configContainer {
+  height: 80vh;
+  overflow-y: scroll;
+}
+
+main.adminMain > #configContainer > div {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1em;
+}
+
+@media (max-width: 930px) {
+  main.adminMain > #configContainer > div {
+    grid-template-columns: 1fr;
+  }
+}
+
 main.adminMain .eventTop {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }
 
 main.adminMain .eventTop > div {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 1em;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1em;
 }
 
 body#md {

@@ -424,7 +424,7 @@ INSERT INTO `user`
 VALUES (
     'John.Doe.Etu@univ-lemans.fr',
     'johnDoe',
-    '4236441508',
+    '$2b$10$QjnlT.rXlfAE7yKRs0eNZurFZhCvOi2fuXmzJPvDXpIzS1ihjbLDO',
     '21B',
     220,
     0,
@@ -435,7 +435,7 @@ VALUES (
 (
     'admin@univ-lemans.fr',
     'admin',
-    '$2b$10$F3XVm35TiIAJzUjGULqNJ.0M1J09JbF5DtwfrXvf.oPmQGmguFLAS',
+    '$2b$10$f0NgphcSbUaXMywE/r/0BuGHDWvf13qjaDxoKWf7umz9/TDc.UP.e',
     'admin',
     0,
     0,
