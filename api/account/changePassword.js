@@ -25,6 +25,7 @@ async function changePassword(req, res) {
     return;
   }
   const passwordhash= hashPass(password1);
+
   await pool.query(
     'UPDATE user SET password = ? WHERE email = ?',
     [passwordhash, email],

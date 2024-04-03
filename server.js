@@ -140,6 +140,7 @@ app.get("/leaderboard", async (req, res) => {
   res.render("leaderboard", {
     cartSize: req.session.cart && req.session.cart.length,
     isLoggedIn: req.session.isLoggedIn,
+    isAdmin: req.session.isAdmin,
   });
 });
 
@@ -148,6 +149,14 @@ app.get("/", async (req, res) => {
     isAdmin: req.session.isAdmin,
     isLoggedIn: req.session.isLoggedIn,
   });
+});
+
+app.get("/pay", (req, res) => {
+  if (req.session.isAdmin) {
+    res.render("pay-admin");
+  } else {
+    res.render("pay");
+  }
 });
 //functions stuff
 

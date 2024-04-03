@@ -1,7 +1,9 @@
 <header>
   <a href="/">Accueil</a>
   <a href="/#evenements">Evenements</a>
+  <% if (!isAdmin) { %>
   <a href="/calendar/">Agenda</a>
+  <% } %>
   <a href="/shop/">Boutique</a>
 
   <% if (isAdmin) { %>
