@@ -76,6 +76,7 @@ function editProduct(id) {
   });
 
   const popupTitle = document.createElement('h3');
+  popupTitle.style.margin = '0';
   popupTitle.innerText = 'Modifier "' + product.name + '"';
   popupTitle.classList.add('popupTitle');
   const popupClose = document.createElement('button');
@@ -83,8 +84,13 @@ function editProduct(id) {
   popupClose.setAttribute('onclick', 'closePopup()');
   popupClose.classList.add('adminStyleButton');
   popupClose.classList.add('closeButton');
-  popupContent.appendChild(popupClose);
-  popupContent.appendChild(popupTitle);
+  const divHeader = document.createElement('div');
+  divHeader.style.display = 'flex';
+  divHeader.style.justifyContent = 'space-between';
+  divHeader.style.alignItems = 'center';
+  divHeader.appendChild(popupTitle);
+  divHeader.appendChild(popupClose);
+  popupContent.appendChild(divHeader);
 
   const editProductForm = document.createElement('form');
   editProductForm.classList.add('productDesc');
@@ -366,8 +372,7 @@ function showSales(id) {
 function addProduct(e) {
   e.preventDefault();
   //get the form data
-  const form = document.getElementById('addNewProductForm');
-  const formData = new FormData(form);
+  const formData = new FormData(e.target);
 
   //send the form data
   fetch('/api/admin/product/add', {

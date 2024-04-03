@@ -120,6 +120,13 @@
         </a>
       </div>
       <div class="bottom">
+        <button
+          id="themeSwitcher"
+          class="headerButton"
+          onclick="switchTheme(this)"
+        >
+          Theme sombre
+        </button>
         <a
           class="signoutBtn"
           onclick="window.location.href = '/api/account/logout'"
@@ -128,8 +135,196 @@
         <a class="signoutBtn" href="/account">Mon compte</a>
       </div>
     </nav>
-    <main></main>
+    <main class="adminMain">
+      <div id="headerProduct">
+        <h1>Produits</h1>
+        <button onclick="togglePopup()" id="addProductBtn">Ajouter un nouveau produit</button>
+      </div>
+      <div id="configContainer">
+        <div class="graphs" id="addNewProductForm">
+          <div>
+            <canvas class="lineGraph" id="salesLineGraph"></canvas>
+          </div>
+          <div>
+            <canvas class="barChart" id="salesBarChart"></canvas>
+          </div>
+        </div>
+
+        <div class="shopLibrary longFlex returnFlex">
+          <div id="popupForm" class="popup-overlay">
+            <div class="popup-content">
+              <form
+                id="addNewProductForm" onsubmit="addProduct(event)"
+              >
+                <h3>Nouveau produit</h3>
+                <div class="formLine">
+                  <input
+                    type="text"
+                    name="name"
+                    id="productName"
+                    placeholder="Nom du produit"
+                  />
+                </div>
+                <div class="formLine">
+                  <textarea
+                    name="description"
+                    id="productDescription"
+                    placeholder="Description"
+                    maxlength="255"
+                  ></textarea>
+                </div>
+                <div class="formLine">
+                  <span>
+                    <input
+                      type="number"
+                      name="price"
+                      id="productPrice"
+                      placeholder="Prix"
+                    />
+                    <span>€</span>
+                  </span>
+                  <input
+                    type="number"
+                    name="confirm_threashold"
+                    id="productConfirmThreashold"
+                    placeholder="Seuil de confirmation"
+                  />
+                </div>
+                <div class="formLine">
+                  <input
+                    type="file"
+                    name="image"
+                    id="productImage"
+                    placeholder="Image"
+                  />
+                  <span class="inverse">
+                    <p>Promu</p>
+                    <input
+                      type="checkbox"
+                      name="is_promoted"
+                      id="productIsPromoted"
+                      placeholder="Promu"
+                    />
+                  </span>
+                  <span class="inverse">
+                    <p>Couleur du background</p>
+                    <input
+                      type="color"
+                      name="background_color"
+                      id="background_color"
+                      placeholder="color"
+                    />
+                  </span>
+                </div>
+                <div class="formLine">
+                  <input
+                    type="text"
+                    name="color"
+                    id="productColor"
+                    placeholder="Couleurs séparées par des virgules"
+                  />
+                  <input
+                    type="text"
+                    name="sizes"
+                    id="productSizes"
+                    placeholder="Tailles séparées par des virgules"
+                  />
+                </div>
+                <div class="formLine">
+                  <span>
+                    <p>du</p>
+                    <input
+                      type="datetime-local"
+                      name="release_date"
+                      id="productReleaseDate"
+                      placeholder="Date de sortie"
+                    />
+                  </span>
+                  <span>
+                    <p>au</p>
+                    <input
+                      type="datetime-local"
+                      name="expire_date"
+                      id="productExpireDate"
+                      placeholder="Date d'expiration"
+                    />
+                  </span>
+                </div>
+
+                <div class="submitBtns">
+                  <button class="close-btn" onclick="togglePopup()">Annuler</button>
+                  <button type="submit" class="adminButton">Ajouter</button>
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <% products.forEach((product) => { %>
+          <div
+            class="product verticalflex"
+            data-promoted="<%= product.is_promoted %>"
+            onclick='location.href="/shop/product/<%= product.name.replace(` `, `-`) %>"'
+          >
+            <div
+              class="productImage"
+              style="
+                background-image: url('/products/<%= product.image %>');
+                background-color: <%= product.background_color %>;
+                --progress: <%=
+                  (product.sales_count / product.confirm_threashold) * 100 %>%;
+              "
+            ></div>
+            <div class="productDesc">
+              <h4><%= product.name %></h4>
+              <p class="desc"><%= product.description %></p>
+              <p class="price"><%= product.price %>€</p>
+              <button
+                class="adminButton"
+                onclick="deleteProduct('<%= product.id %>'); event.stopPropagation()"
+              >
+                Supprimer
+              </button>
+              <button
+                class="adminButton"
+                onclick="editProduct('<%= product.id %>'); event.stopPropagation()"
+              >
+                Modifier
+              </button>
+              <span class="bottomProductSpan">
+                <button
+                  class="adminButton"
+                  onclick="showSales('<%= product.id %>'); event.stopPropagation()"
+                >
+                  Voir les achats
+                </button>
+                <button
+                  class="adminButton addBuyer"
+                  onclick="addBuyerToEvent('<%= product.id %>'); event.stopPropagation()"
+                >
+                  +
+                </button>
+              </span>
+            </div>
+          </div>
+          <% }) %>
+        </div>
+      </div>
+    </main>
   </body>
   <script src="/js/logic.js"></script>
   <script src="/js/adminProducts.js"></script>
+  <script>
+    function togglePopup() {
+      var popup = document.getElementById("popupForm");
+      popup.style.display = popup.style.display === "none" ? "flex" : "none";
+    }
+
+    // Pour fermer le popup si l'utilisateur clique en dehors de celui-ci
+    window.onclick = function (event) {
+      var popup = document.getElementById("popupForm");
+      if (event.target == popup) {
+        popup.style.display = "none";
+      }
+    };
+  </script>
 </html>
