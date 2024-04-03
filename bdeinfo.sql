@@ -261,7 +261,7 @@ CREATE TABLE `product_color` (
   `color_id` int(11) DEFAULT NULL,
   KEY `product_id` (`product_id`),
   KEY `color_id` (`color_id`),
-  CONSTRAINT `product_color_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`),
+  CONSTRAINT `product_color_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON DELETE CASCADE,
   CONSTRAINT `product_color_ibfk_2` FOREIGN KEY (`color_id`) REFERENCES `color` (`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */
@@ -289,7 +289,7 @@ CREATE TABLE `product_size` (
   `product_id` int(11) DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
   KEY `product_id` (`product_id`),
-  CONSTRAINT `product_size_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`)
+  CONSTRAINT `product_size_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON DELETE CASCADE
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */
 ;
@@ -368,7 +368,7 @@ CREATE TABLE `transactionContent` (
   CONSTRAINT `transactionContent_ibfk_2` FOREIGN KEY (`event_id`) REFERENCES `event` (`id`),
   CONSTRAINT `transactionContent_ibfk_3` FOREIGN KEY (`grade_id`) REFERENCES `grade` (`id`),
   CONSTRAINT `transactionContent_ibfk_4` FOREIGN KEY (`transaction_id`) REFERENCES `transaction` (`transaction_id`),
-  CONSTRAINT `transactionContent_ibfk_5` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`)
+  CONSTRAINT `transactionContent_ibfk_5` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON DELETE SET NULL
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */
 ;
@@ -508,8 +508,11 @@ LOCK TABLES `xp` WRITE;
 INSERT INTO `xp`
 VALUES ('event', 100), ('grade', 1000);
 /*!40000 ALTER TABLE `xp` ENABLE KEYS */
+
 ;
 UNLOCK TABLES;
+
+
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */
 ;
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */

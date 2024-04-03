@@ -31,7 +31,21 @@ function closePopup() {
 }
 
 function deleteProduct(id) {
-  console.log(id);
+  fetch('/api/admin/product/delete', {
+    method: 'POST',
+    body: JSON.stringify({ id }),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((res) => {
+      if (res.status == 200) {
+        userAlertGood('Produit supprimé');
+        location.reload(true);
+      } else {
+        userAlert('Erreur lors de la suppression du produit');
+      }
+    });
 }
 
 function modifyProduct(e) {

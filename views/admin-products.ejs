@@ -137,9 +137,11 @@
     <main class="adminMain">
       <div id="headerProduct">
         <h1>Produits</h1>
-        <button onclick="togglePopup()" id="addProductBtn">Ajouter un nouveau produit</button>
+        <button onclick="togglePopup()" id="addProductBtn">
+          Ajouter un nouveau produit
+        </button>
       </div>
-      <div id="configContainer">
+      <div id="productContainer">
         <div class="graphs" id="addNewProductForm">
           <div>
             <canvas class="lineGraph" id="salesLineGraph"></canvas>
@@ -152,9 +154,7 @@
         <div class="shopLibrary longFlex returnFlex">
           <div id="popupForm" class="popup-overlay">
             <div class="popup-content">
-              <form
-                id="addNewProductForm" onsubmit="addProduct(event)"
-              >
+              <form id="addNewProductForm" onsubmit="addProduct(event)">
                 <h3>Nouveau produit</h3>
                 <div class="formLine">
                   <input
@@ -179,6 +179,7 @@
                       name="price"
                       id="productPrice"
                       placeholder="Prix"
+                      min="0"
                     />
                     <span>€</span>
                   </span>
@@ -187,6 +188,7 @@
                     name="confirm_threashold"
                     id="productConfirmThreashold"
                     placeholder="Seuil de confirmation"
+                    min="0"
                   />
                 </div>
                 <div class="formLine">
@@ -251,61 +253,64 @@
                 </div>
 
                 <div class="submitBtns">
-                  <button class="close-btn" onclick="togglePopup()">Annuler</button>
+                  <button class="close-btn" onclick="togglePopup()">
+                    Annuler
+                  </button>
                   <button type="submit" class="adminButton">Ajouter</button>
                 </div>
               </form>
             </div>
           </div>
-
-          <% products.forEach((product) => { %>
-          <div
-            class="product verticalflex"
-            data-promoted="<%= product.is_promoted %>"
-            onclick='location.href="/shop/product/<%= product.name.replace(` `, `-`) %>"'
-          >
+          <div id="productListContainer">
+            <% products.forEach((product) => { %>
             <div
-              class="productImage"
-              style="
-                background-image: url('/products/<%= product.image %>');
-                background-color: <%= product.background_color %>;
-                --progress: <%=
-                  (product.sales_count / product.confirm_threashold) * 100 %>%;
-              "
-            ></div>
-            <div class="productDesc">
-              <h4><%= product.name %></h4>
-              <p class="desc"><%= product.description %></p>
-              <p class="price"><%= product.price %>€</p>
-              <button
-                class="adminButton"
-                onclick="deleteProduct('<%= product.id %>'); event.stopPropagation()"
-              >
-                Supprimer
-              </button>
-              <button
-                class="adminButton"
-                onclick="editProduct('<%= product.id %>'); event.stopPropagation()"
-              >
-                Modifier
-              </button>
-              <span class="bottomProductSpan">
+              class="product verticalflex"
+              data-promoted="<%= product.is_promoted %>"
+              onclick='location.href="/shop/product/<%= product.name.replace(` `, `-`) %>"'
+            >
+              <div
+                class="productImage"
+                style="
+                  background-image: url('/products/<%= product.image %>');
+                  background-color: <%= product.background_color %>;
+                  --progress: <%=
+                    (product.sales_count / product.confirm_threashold) * 100 %>%;
+                "
+              ></div>
+              <div class="productDesc">
+                <h4><%= product.name %></h4>
+                <p class="desc"><%= product.description %></p>
+                <p class="price"><%= product.price %>€</p>
                 <button
                   class="adminButton"
-                  onclick="showSales('<%= product.id %>'); event.stopPropagation()"
+                  onclick="deleteProduct('<%= product.id %>'); event.stopPropagation()"
                 >
-                  Voir les achats
+                  Supprimer
                 </button>
                 <button
-                  class="adminButton addBuyer"
-                  onclick="addBuyerToEvent('<%= product.id %>'); event.stopPropagation()"
+                  class="adminButton"
+                  onclick="editProduct('<%= product.id %>'); event.stopPropagation()"
                 >
-                  +
+                  Modifier
                 </button>
-              </span>
+                <span class="bottomProductSpan">
+                  <button
+                    class="adminButton"
+                    onclick="showSales('<%= product.id %>'); event.stopPropagation()"
+                  >
+                    Voir les achats
+                  </button>
+                  <button
+                    class="adminButton addBuyer"
+                    onclick="addBuyerToEvent('<%= product.id %>'); event.stopPropagation()"
+                  >
+                    +
+                  </button>
+                </span>
+              </div>
             </div>
+            <% }) %>
           </div>
-          <% }) %>
         </div>
       </div>
     </main>

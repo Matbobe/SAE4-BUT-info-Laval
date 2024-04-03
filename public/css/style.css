@@ -205,6 +205,11 @@ main.adminMain > #configContainer > div {
   }
 }
 
+main.adminMain > #productContainer {
+  height: 80vh;
+  overflow-y: scroll;
+}
+
 main.adminMain .eventTop {
   display: flex;
   flex-direction: row;
