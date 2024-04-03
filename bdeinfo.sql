@@ -435,7 +435,7 @@ VALUES (
 (
     'admin@univ-lemans.fr',
     'admin',
-    '92668751',
+    '$2b$10$F3XVm35TiIAJzUjGULqNJ.0M1J09JbF5DtwfrXvf.oPmQGmguFLAS',
     'admin',
     0,
     0,
@@ -484,6 +484,30 @@ LOCK TABLES `usersToRenew` WRITE;
 INSERT INTO `usersToRenew`
 VALUES ('John.Doe.Etu@univ-lemans.fr', 2);
 /*!40000 ALTER TABLE `usersToRenew` ENABLE KEYS */
+;
+UNLOCK TABLES;  
+
+DROP TABLE IF EXISTS `xp`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */
+;
+/*!40101 SET character_set_client = utf8 */
+;
+CREATE TABLE `xp` (
+  `nom` varchar(255) NOT NULL,
+  `quantite` int(11) NOT NULL,
+  PRIMARY KEY (`nom`)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */
+;
+--
+-- Dumping data for table `xp`
+--
+LOCK TABLES `xp` WRITE;
+/*!40000 ALTER TABLE `xp` DISABLE KEYS */
+;
+INSERT INTO `xp`
+VALUES ('event', 100), ('grade', 1000);
+/*!40000 ALTER TABLE `xp` ENABLE KEYS */
 ;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */

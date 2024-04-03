@@ -140,6 +140,7 @@ app.get("/leaderboard", async (req, res) => {
   res.render("leaderboard", {
     cartSize: req.session.cart && req.session.cart.length,
     isLoggedIn: req.session.isLoggedIn,
+    isAdmin: req.session.isAdmin,
   });
 });
 
@@ -180,6 +181,16 @@ async function getGradePrices() {
   ironprice = gradesResults[0].price;
   goldprice = gradesResults[1].price;
   diamantprice = gradesResults[2].price;
+}
+
+async function getXPQuantite() {
+  // Récupérer les prix des catégories de la base de données (table xp)
+  const xpQuery = "SELECT * FROM xp";
+  const [xpResults] = await pool.query(xpQuery);
+
+  // eventxp = xpResults[0].quantite;
+  // gradexp = xpResults[1].quantite;
+  return { xpResults };
 }
 
 async function getUserGrade(email) {
@@ -718,6 +729,7 @@ export {
   ironprice,
   goldprice,
   diamantprice,
+  getXPQuantite,
   generateEventId,
   checkAndAddEventToDatabase,
   readdirSync,

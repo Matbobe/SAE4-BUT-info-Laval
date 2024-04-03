@@ -156,6 +156,17 @@ main.adminMain > #eventContainer {
     gap: 1em;
 }
 
+main.adminMain > #configContainer {
+    height: 80vh;
+    overflow-y: scroll;
+}
+
+main.adminMain > #configContainer > div {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
 main.adminMain .eventTop {
     display: flex;
     flex-direction: row;

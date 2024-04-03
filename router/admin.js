@@ -20,6 +20,7 @@ import {
   goldprice,
   diamantprice,
   pool,
+  getXPQuantite,
 } from "../server.js";
 
 router.get("", async (req, res) => {
@@ -56,7 +57,32 @@ router.get("/evenements", async (req, res) => {
 
     res.render("admin-evenements");
   } catch (err) {
-    console.error("Erreur lors du traitement des requêtes SQL :", err);
+    // Gérer l'erreur comme vous le souhaitez
+    res.status(500).send("Une erreur s'est produite");
+  }
+});
+
+
+router.get("/config", async (req, res) => {
+  // Show all product, with the possibility to edit them and add new ones
+
+  try {
+    if (!req.session.isLoggedIn || req.session.category !== "admin") {
+      res.redirect("/login?returnUrl=/admin/evenements");
+      return;
+    }
+
+    getGradePrices();
+    const { xpResults } = await getXPQuantite();
+
+    res.render("admin-config", {
+      ironprice,
+      goldprice,
+      diamantprice,
+      xpAmount: xpResults[0].quantite,
+      xpThreshold: xpResults[1].quantite
+    });
+  } catch (err) {
     // Gérer l'erreur comme vous le souhaitez
     res.status(500).send("Une erreur s'est produite");
   }

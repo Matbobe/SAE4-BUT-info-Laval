@@ -161,9 +161,6 @@ router.get("", async (req, res) => {
       })
     ).then(() => {
       req.session.cart = itemsToSend;
-      if (req.session) {
-        !req.session.isAdmin;
-      }
       // Effectuer le rendu ici, à l'intérieur de la condition
       res.render("payment", {
         paypalClientId: process.env.PAYPAL_CLIENT_ID,
