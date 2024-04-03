@@ -144,6 +144,38 @@ body#adminBody button:disabled {
   cursor: default;
 }
 
+.adminMain .quickAccess {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  gap: 1em;
+  width: 100%;
+  padding: 0 1em;
+}
+
+.adminMain .quickAccess > a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 25%;
+  gap: 0.5em;
+  padding: 1em;
+  border-radius: 4px;
+  background-color: var(--background-color);
+  box-shadow: 0 0 3px var(--header-shadow);
+  transition: background-color 0.1s;
+}
+
+.adminMain .quickAccess p {
+  margin: 0;
+}
+
+.adminMain .quickAccess > a:hover {
+  background-color: var(--secondary-background-color);
+}
+
 main.adminMain {
   padding: 1em;
 }
