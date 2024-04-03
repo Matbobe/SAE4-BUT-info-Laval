@@ -149,6 +149,14 @@ app.get("/", async (req, res) => {
     isLoggedIn: req.session.isLoggedIn,
   });
 });
+
+app.get("/pay", (req, res) => {
+  if (req.session.isAdmin) {
+    res.render("pay-admin");
+  } else {
+    res.render("pay");
+  }
+});
 //functions stuff
 
 function getVersion() {

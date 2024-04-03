@@ -12,6 +12,7 @@ router.get("", async (req, res) => {
     category: req.session.category,
     cartSize: req.session.cart && req.session.cart.length,
     isLoggedIn: req.session.isLoggedIn,
+    isAdmin: req.session.isAdmin,
   });
 });
 export default router;

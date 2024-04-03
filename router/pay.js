@@ -43,7 +43,7 @@ router.get("", async (req, res) => {
       cart: [],
       cartSize: 0,
       isLoggedIn: req.session.isLoggedIn,
-      isAdmin: req.session.isAdmin,
+      isAdmin: !req.session.isAdmin,
     });
     return;
   }
@@ -161,12 +161,16 @@ router.get("", async (req, res) => {
       })
     ).then(() => {
       req.session.cart = itemsToSend;
+      if (req.session) {
+        !req.session.isAdmin;
+      }
       // Effectuer le rendu ici, à l'intérieur de la condition
       res.render("payment", {
         paypalClientId: process.env.PAYPAL_CLIENT_ID,
         cartSize: itemsToSend && itemsToSend.length,
         isLoggedIn: req.session.isLoggedIn,
         cart: itemsToSend,
+        isAdmin: req.session.isAdmin,
       });
     });
   } catch (err) {
