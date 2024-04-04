@@ -154,14 +154,7 @@ textarea {
   margin-bottom: 1.5rem;
 }
 
-.graphs {
-  flex-grow: 1;
-  width: 100%;
-  height: 200px;
-  display: flex;
-  gap: 2rem;
-  padding: 0 2rem;
-}
+
 
 .graphs > div {
   height: 100%;
@@ -287,4 +280,22 @@ textarea {
 
 #addNewProductForm .submitBtns .adminButton {
     background-color: var(--important-text-color);
+}
+
+#productListContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: left;
+}
+
+.graphs {
+  flex-grow: 1;
+  width: 100%!important;
+  height: 200px;
+  display: flex;
+  gap: 2rem;
+  padding: 0 2rem;
+  justify-content: space-between!important;
+  flex-direction: row!important;
 }

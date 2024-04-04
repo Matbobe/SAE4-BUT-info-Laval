@@ -208,6 +208,11 @@ main.adminMain > #configContainer > div {
   }
 }
 
+main.adminMain > #productContainer {
+  height: 80vh;
+  overflow-y: scroll;
+}
+
 main.adminMain .eventTop {
   display: flex;
   flex-direction: row;
@@ -1563,7 +1568,7 @@ un {
   gap: 1.5rem;
   height: -moz-fit-content;
   height: fit-content;
-  padding-bottom: 10rem;
+  padding-bottom: 1rem;
 }
 
 .grade {
@@ -1645,9 +1650,10 @@ un {
 }
 
 .disclaimer {
-  text-align: right;
+  text-align: center;
   font-size: 0.7em;
   padding: 0 0.3em;
+  padding-bottom: 5rem;
 }
 
 #calendar {
