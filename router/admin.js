@@ -88,6 +88,26 @@ router.get("/config", async (req, res) => {
   }
 });
 
+router.get("/annonce", async (req, res) => {
+  // Show all product, with the possibility to edit them and add new ones
+
+  try {
+    if (!req.session.isLoggedIn || !req.session.isAdmin) {
+      res.redirect("/login?returnUrl=/admin/evenements");
+      return;
+    }
+
+    const [annonces] = await pool.query("SELECT * FROM annonce");
+
+    res.render("admin-annonce", {
+      annonces,
+    });
+  } catch (err) {
+    // Gérer l'erreur comme vous le souhaitez
+    res.status(500).send("Une erreur s'est produite");
+  }
+});
+
 router.get("/products", async (req, res) => {
   //Show all product, with the possibility to edit them and add new ones
 

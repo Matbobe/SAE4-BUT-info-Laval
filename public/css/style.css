@@ -179,9 +179,9 @@ body#adminBody button:disabled {
 main.adminMain {
   padding: 1em;
 }
-a{
+a {
   text-decoration: none;
-  color: var(--important-text-color)!important;
+  color: var(--important-text-color) !important;
 }
 main.adminMain > #eventContainer {
   height: 80vh;
@@ -225,6 +225,67 @@ main.adminMain .eventTop > div {
   flex-direction: row;
   align-items: center;
   gap: 1em;
+}
+
+#adminAnnoncePage button {
+  font-family: "Inter";
+  font-weight: 700;
+  font-size: 1rem;
+  border-radius: 5px;
+  border: none;
+  background-color: var(--casual-text-color);
+  margin-top: 6px;
+  color: var(--background-color);
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: all 0.1s;
+}
+
+#adminAnnoncePage button:hover {
+  background-color: var(--important-text-color);
+}
+
+main.adminMain #headerAnnonce {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1em;
+}
+
+#adminAnnoncePage #annonceContainer {
+  height: 80vh;
+  overflow-y: scroll;
+}
+
+#adminAnnoncePage .hidden {
+  display: none;
+}
+
+#adminAnnoncePage #annonceList {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+#adminAnnoncePage .annonce {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 1em;
+  background-color: var(--background-color);
+  box-shadow: 0 0 3px var(--header-shadow);
+  border-radius: 4px;
+}
+
+.textEditorRightBtn1 {
+  position: absolute;
+  right: 8px;
+}
+
+.textEditorRightBtn2 {
+  position: absolute;
+  right: 38px;
 }
 
 body#md {
