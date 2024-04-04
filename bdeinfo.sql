@@ -531,6 +531,8 @@ CREATE TABLE `annonce` (
 -- Dumping data for table `annonce`
 --
 LOCK TABLES `annonce` WRITE;
+/*!40000 ALTER TABLE `xp` DISABLE KEYS */
+;
 INSERT INTO `annonce`
 VALUES (1, '2024-03-21 10:25:54', `Bonjour tout le monde, votre pâtissier préféré pour vous servir, 👨‍🍳
 Je suis déjà brièvement passé parmi vous pour vous demander si une vente de gâteaux vous intéresserait 🧁 
@@ -553,7 +555,8 @@ Je vous redonne une date en fin de semaine avec les prix et la vente sera sans d
 
 ⚠️ Le seul moyen de payement accepté est le liquide 
 
-🔗 En cas de problème pour le payement merci de contacter directement Mme. Vieillard par mail`), (3, '2024-02-28 17:27:51', `## Rendez-vous au BDE pour une pause gourmande ! 🍰
+🔗 En cas de problème pour le payement merci de contacter directement Mme. Vieillard par mail`),
+(3, '2024-02-28 17:27:51', `## Rendez-vous au BDE pour une pause gourmande ! 🍰
 
 Nous avons encore quelques douceurs qui n'attendent que vous :
 - Financiers 🧁
