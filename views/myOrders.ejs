@@ -61,6 +61,7 @@
                 <div class="productDesc">
                     <h4><%= order.name %></h4>
                     <p>Prix: <%= order.price %> €</p>
+                    <p>Quantité: <%= order.quantity %></p>
                 </div>
                 </div>
                 <button class="button-rebuy" onclick="location.href='shop/product/<%= order.name.replace(` `, `-`) %>'">Racheter</button>
