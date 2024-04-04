@@ -85,7 +85,7 @@ router.post("", async (req, res) => {
   //here, we manually put validated to 1 since there is no payment gateway nor verification
   await pool.query(
     "INSERT INTO transaction (transaction_id, email, total_price, validated) VALUES (?, ?, ?, ?)",
-    [insertedID, req.session.email, totalPrice, 1],
+    [insertedID, req.session.email, totalPrice * element.quantity, 1],
     (err) => {
       console.log("Entering callback");
       if (err) {
