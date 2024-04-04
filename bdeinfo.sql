@@ -531,7 +531,7 @@ CREATE TABLE `annonce` (
 -- Dumping data for table `annonce`
 --
 LOCK TABLES `annonce` WRITE;
-/*!40000 ALTER TABLE `xp` DISABLE KEYS */
+/*!40000 ALTER TABLE `annonce` DISABLE KEYS */
 ;
 INSERT INTO `annonce`
 VALUES (1, '2024-03-21 10:25:54', `Bonjour tout le monde, votre pâtissier préféré pour vous servir, 👨‍🍳
