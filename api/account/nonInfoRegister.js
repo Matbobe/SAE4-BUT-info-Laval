@@ -4,8 +4,15 @@ import { pool, setSessionItems } from "../../server.js";
 
 router.post("", async (req, res) => {
   const defaultXp = process.env.DEFAULT_XP;
-  const name = req.body.name;
-  const email = req.body.email;
+  const { name, email } = req.body;
+
+  console.log(`Received name: ${name}, email: ${email}`);
+  if (!name) {
+    return res.status(400).json({ error: "Le nom ne peut pas être vide." });
+  }
+  if (!email) {
+    return res.status(400).json({ error: "L'email ne peut pas être vide." });
+  }
 
   //check if the name already exists in the users table
   const [exists] = await pool.query(
@@ -29,7 +36,7 @@ router.post("", async (req, res) => {
   console.log("Creating new temp user with name " + name + "...");
 
   await pool.query(
-    "INSERT INTO user (email, username) VALUES (?,?)",
+    "INSERT INTO user (username, email) VALUES (?,?)",
     [name, email],
 
     (err) => {

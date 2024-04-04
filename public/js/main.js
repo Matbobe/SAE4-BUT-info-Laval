@@ -153,9 +153,8 @@ if (registerForm.classList.contains("emailSubmit")) {
 nonInfoRegisterForm.addEventListener("submit", (e) => {
   e.preventDefault();
 
-  const formData = new FormData(e.target);
-  const name = formData.get("name");
-  const email = formData.get("email");
+  const name = document.getElementById("name").value;
+  const email = document.getElementById("email").value;
 
   fetch("/api/account/nonInfoRegister", {
     method: "POST",
