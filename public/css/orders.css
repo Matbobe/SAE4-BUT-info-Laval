@@ -11,7 +11,7 @@
     margin-top: 20px;
     margin-left: 50px;
 }
-.button-buy{
+.pulse{
     font-family: Inter;
     font-size: 20px;
     font-style: normal;
@@ -23,11 +23,22 @@
     width: 300px;
     padding: 0.6em 1.6em;
     cursor: pointer;
-    transition: background-color 0.15s ease;
+    transition: border-radius 0.3s ease;
 }
-button.button-buy:hover{
-        border-radius: 10px;
-    }
+.pulse:hover, 
+.pulse:focus {
+  animation: pulse 1s;
+  box-shadow: 0 0 0 2em transparent;
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 var(--hover); }
+  100% { box-shadow: 0 0 0 2em transparent; }
+}
+
+:root {
+  --hover: #80f0a4; /* Remplacez #your-color par la couleur de votre choix */
+}
 
 .button-rebuy{
     font-family: Inter;
@@ -44,8 +55,15 @@ button.button-buy:hover{
     cursor: pointer;
     transition: border-radius 0.3s ease;
 }
-button.button-rebuy:hover{
-    border-radius: 10px;
+.button-rebuy:hover, 
+.button-rebuy:focus {
+  animation: pulse 1s;
+  box-shadow: 0 0 0 2em transparent;
+}
+
+@keyframes button-rebuy {
+  0% { box-shadow: 0 0 0 0 var(--hover); }
+  100% { box-shadow: 0 0 0 2em transparent; }
 }
 h1{
     font-size: 3rem;
