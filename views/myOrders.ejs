@@ -16,10 +16,13 @@
     <%- include('header', {cartSize ,isLoggedIn,isAdmin}) %>
     
     <div class="texte-header">
-    <h2>Bonjour, <em><%= username %></em><br><br> votre historique des commandes :</h2>
+    <h2>Bonjour, <em><%= username %></em><br><br> Votre historique des commandes :</h2>
     <% if (orders.length === 0) { %>
+        <div class="button-div">
         <p>Vous n'avez pas encore commandé de produits</p>
+        
         <button class="pulse" onclick="location.href='/shop/'">Aller à la boutique</button>
+        </div>
     <% } else { %>
         <p>Vous avez commandé <em><%= orders.length %></em> produits</p>
     <% } %>
