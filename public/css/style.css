@@ -288,6 +288,31 @@ main.adminMain #headerAnnonce {
   right: 38px;
 }
 
+#annoncesPage {
+  display: flex;
+  flex-direction: column;
+  padding: 5em 2em 3em 2em;
+  justify-content: center;
+  align-items: center;
+}
+
+#annoncesPage #annoncesContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  width: 100%;
+}
+
+#annoncesPage #annoncesContainer .annonce {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 1em;
+  background-color: var(--background-color);
+  box-shadow: 0 0 3px var(--header-shadow);
+  border-radius: 4px;
+}
+
 body#md {
   background-color: var(--background-color) !important;
   padding: 1em;

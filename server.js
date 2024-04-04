@@ -119,6 +119,9 @@ app.use("/shop", shop);
 import product from "./router/product.js";
 app.use("/shop/product", product);
 
+import annonce from "./router/annonce.js";
+app.use("/annonce", annonce);
+
 app.get("/legal", (req, res) => {
   res.render("legal");
 });
