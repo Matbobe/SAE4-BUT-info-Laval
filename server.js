@@ -335,6 +335,7 @@ async function addUserToEventWithXp(
   const itemId = item.id;
   const name = item.name;
   const price = item.price;
+  const quantity = item.quantity;
 
   if (type === "grade") {
     console.log(
@@ -353,8 +354,8 @@ async function addUserToEventWithXp(
 
     //add a transaction content line to the database referencing the transaction_id
     await pool.query(
-      "INSERT INTO transactionContent (transaction_id, grade_id, item_name, item_price) VALUES (?, ?, ?, ?)",
-      [transaction_id, itemId, name, price],
+      "INSERT INTO transactionContent (transaction_id, grade_id, item_name, item_price, quantity) VALUES (?, ?, ?, ?, ?)",
+      [transaction_id, itemId, name, price, quantity],
       (err) => {
         if (err) {
           console.error(
@@ -404,8 +405,8 @@ async function addUserToEventWithXp(
 
     //add a transaction content line to the database referencing the transaction_id
     await pool.query(
-      "INSERT INTO transactionContent (transaction_id, event_id, item_name, item_price) VALUES (?, ?, ?, ?)",
-      [transaction_id, itemId, name, price],
+      "INSERT INTO transactionContent (transaction_id, event_id, item_name, item_price, quantity) VALUES (?, ?, ?, ?, ?)",
+      [transaction_id, itemId, name, price, quantity],
       (err) => {
         if (err) {
           console.error(
@@ -419,8 +420,8 @@ async function addUserToEventWithXp(
   } else if (type === "product") {
     //add a transaction content line to the database referencing the transaction_id
     await pool.query(
-      "INSERT INTO transactionContent (transaction_id, product_id, item_name, item_price) VALUES (?, ?, ?, ?)",
-      [transaction_id, itemId, name, price],
+      "INSERT INTO transactionContent (transaction_id, product_id, item_name, item_price, quantity) VALUES (?, ?, ?, ?, ?)",
+      [transaction_id, itemId, name, price, quantity],
       (err) => {
         if (err) {
           console.error(
