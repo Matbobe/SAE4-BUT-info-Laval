@@ -58,6 +58,13 @@
 
     <form class="registerForm nonInfo" data-shown="false">
       <input type="text" id="name" placeholder="Nom" />
+      <input
+        type="email"
+        id="email"
+        placeholder="Email"
+        required
+        pattern=".+@univ-lemans\.fr"
+      />
       <input class="button" type="submit" value="Continuer sans compte" />
     </form>
 
@@ -155,62 +162,63 @@
     </form>
     <% } %>
     <script>
-      if ('<%= verifiedRegisterEmail %>') {
+      if ("<%= verifiedRegisterEmail %>") {
         toggleForms();
       }
 
       //if the url contains a return url to /pay, add a way to only enter a name
       var urlParams = new URLSearchParams(window.location.search);
-      var returnUrl = urlParams.get('returnUrl');
+      var returnUrl = urlParams.get("returnUrl");
 
-      if (returnUrl && returnUrl === '/pay') {
-        const nonInfoToggle = document.createElement('p');
-        nonInfoToggle.classList.add('formToggle');
-        nonInfoToggle.classList.add('nonInfoToggle');
-        nonInfoToggle.innerHTML = 'Continuer sans compte';
+      if (returnUrl && returnUrl === "/pay") {
+        const nonInfoToggle = document.createElement("p");
+        nonInfoToggle.classList.add("formToggle");
+        nonInfoToggle.classList.add("nonInfoToggle");
+        nonInfoToggle.innerHTML = "Continuer sans compte";
 
         nonInfoToggle.onclick = function () {
-          const registerForm = document.querySelector('.registerForm.nonInfo');
+          const registerForm = document.querySelector(".registerForm.nonInfo");
+
           registerForm.setAttribute(
-            'data-shown',
-            registerForm.getAttribute('data-shown') === 'true'
-              ? 'false'
-              : 'true'
+            "data-shown",
+            registerForm.getAttribute("data-shown") === "true"
+              ? "false"
+              : "true"
           );
           nonInfoToggle.innerHTML =
-            nonInfoToggle.innerHTML === 'Continuer sans compte'
-              ? 'Annuler'
-              : 'Continuer sans compte';
+            nonInfoToggle.innerHTML === "Continuer sans compte"
+              ? "Annuler"
+              : "Continuer sans compte";
 
           //set all input from loginForm to to disabled
-          const loginForm = document.getElementById('loginForm');
-          const loginFormInputs = loginForm.querySelectorAll('input');
+          const loginForm = document.getElementById("loginForm");
+          const loginFormInputs = loginForm.querySelectorAll("input");
           loginFormInputs.forEach((input) => {
-            input.toggleAttribute('disabled');
+            input.toggleAttribute("disabled");
           });
         };
 
-        document.getElementById('loginForm').appendChild(nonInfoToggle);
+        document.getElementById("loginForm").appendChild(nonInfoToggle);
       }
 
       function toggleForms() {
-        const loginForm = document.getElementById('loginForm');
+        const loginForm = document.getElementById("loginForm");
+
         const registerForm = document.querySelector(
-          '.registerForm:not(.nonInfo)'
+          ".registerForm:not(.nonInfo)"
         );
         loginForm.setAttribute(
-          'data-shown',
-          loginForm.getAttribute('data-shown') === 'true' ? 'false' : 'true'
+          "data-shown",
+          loginForm.getAttribute("data-shown") === "true" ? "false" : "true"
         );
         registerForm.setAttribute(
-          'data-shown',
-          registerForm.getAttribute('data-shown') === 'true' ? 'false' : 'true'
+          "data-shown",
+          registerForm.getAttribute("data-shown") === "true" ? "false" : "true"
         );
       }
     </script>
     <script src="/js/main.js"></script>
     <!-- main.js is for the login/registration scripts -->
     <script src="/js/logic.js"></script>
-    
   </body>
 </html>

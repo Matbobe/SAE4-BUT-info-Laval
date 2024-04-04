@@ -213,6 +213,9 @@ function useCartItems(cart) {
     // document.querySelector('.actionContainer').style.justifyContent = 'center';
   }
   checkEmptyCart();
+  document.getElementById("payButton").addEventListener("click", function () {
+    localStorage.clear();
+  });
 }
 
 function checkout(listOfItems) {
