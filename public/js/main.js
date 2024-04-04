@@ -62,8 +62,8 @@ if (registerForm.classList.contains("emailSubmit")) {
   registerForm.addEventListener("submit", async (e) => {
     // Note the async keyword here
     e.preventDefault();
-
-    const email = document.getElementById("email").value;
+    const formData = new FormData(e.target);
+    const email = formData.get("email");
 
     try {
       const response = await fetch("/api/account/verifyEmail", {
@@ -153,8 +153,9 @@ if (registerForm.classList.contains("emailSubmit")) {
 nonInfoRegisterForm.addEventListener("submit", (e) => {
   e.preventDefault();
 
-  const name = document.getElementById("name").value;
-  const email = document.getElementById("email").value;
+  const formData = new FormData(e.target);
+  const name = formData.get("name");
+  const email = formData.get("email");
 
   fetch("/api/account/nonInfoRegister", {
     method: "POST",
