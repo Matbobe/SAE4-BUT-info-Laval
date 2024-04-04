@@ -50,7 +50,10 @@
                     </div>
                 <% 
             }
-            totalPrice += order.price;
+            if(order.quantity===null){
+                order.quantity=1;
+            }
+            totalPrice += order.price * order.quantity;
             %>
             <div class="order-content">
                 <div class="order-product">
@@ -61,6 +64,7 @@
                 <div class="productDesc">
                     <h4><%= order.name %></h4>
                     <p>Prix: <%= order.price %> €</p>
+                    <p>Quantité: <%= order.quantity %></p>
                 </div>
                 </div>
                 <button class="button-rebuy" onclick="location.href='shop/product/<%= order.name.replace(` `, `-`) %>'">Racheter</button>
