@@ -50,7 +50,10 @@
                     </div>
                 <% 
             }
-            totalPrice += order.price;
+            if(order.quantity===null){
+                order.quantity=1;
+            }
+            totalPrice += order.price * order.quantity;
             %>
             <div class="order-content">
                 <div class="order-product">
