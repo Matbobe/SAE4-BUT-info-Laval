@@ -173,7 +173,7 @@
             <p id="content<%= annonce.id %>"></p>
             <script>
               document.getElementById("content<%= annonce.id %>").innerHTML =
-              '<%= annonce.created_at.toLocaleDateString("fr-FR") %>' + 
+              "<%= annonce.created_at.toLocaleDateString('fr-FR', {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit'}) %>" + 
                 marked.parse(`<%= annonce.content %>`);
             </script>
             <button class="editBtn" onclick="editAnnonce(<%= annonce.id %>)">
