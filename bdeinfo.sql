@@ -533,36 +533,11 @@ CREATE TABLE `annonce` (
 LOCK TABLES `annonce` WRITE;
 /*!40000 ALTER TABLE `annonce` DISABLE KEYS */
 ;
-INSERT INTO `annonce`
-VALUES (1, '2024-03-21 10:25:54', `Bonjour tout le monde, votre pâtissier préféré pour vous servir, 👨‍🍳
-Je suis déjà brièvement passé parmi vous pour vous demander si une vente de gâteaux vous intéresserait 🧁 
+INSERT INTO `annonce` (id, created_at, content) VALUES
+(1, '2024-03-21 10:25:54', 'Bonjour tout le monde, votre pâtissier préféré pour vous servir, 👨‍🍳\nJe suis déjà brièvement passé parmi vous pour vous demander si une vente de gâteaux vous intéresserait 🧁 \n\nLes avis étant plutôt positifs,\nje vous demande maintenant quels types de petits gâteaux vous aimeriez déguster. 😋 \n\nCi-dessous une petite liste de ce qui pourrait être proposé : \n\n- Financiers 🥧\n- Cookies🍪\n- Fondant chocolat 🍫  \n- Cannelés ❤️ \n\nN''hésitez pas si vous avez d''autres suggestions de petites gourmandises qui pourraient ravir vos papilles !\nJe vous redonne une date en fin de semaine avec les prix et la vente sera sans doute programmée pour la semaine prochaine.'),
+(2, '2024-01-23 09:24:54', 'Comme indiqué dans le mail communiqué par Mme. Vieillard, une participation de 5€ est demandé pour la balade en bateau sur la Seine pour la sortie à Paris le 16 mai 2024\n\n📍  Merci de venir au niveau du bureau de l''adiil au moment des pauses ou de nous solliciter directement dans les couloirs du bâtiment \n\n⚠️ Le seul moyen de payement accepté est le liquide \n\n🔗 En cas de problème pour le payement merci de contacter directement Mme. Vieillard par mail'),
+(3, '2024-02-28 17:27:51', '## Rendez-vous au BDE pour une pause gourmande ! 🍰\n\nNous avons encore quelques douceurs qui n''attendent que vous :\n- Financiers 🧁\n- Gâteau au chocolat fondant 🍫\n\nNe manquez pas cette chance de vous régaler et de soutenir notre BDE ! Venez vite, ils partent comme des petits pains ! ');
 
-Les avis étant plutôt positifs,
-je vous demande maintenant quels types de petits gâteaux vous aimeriez déguster. 😋 
-
-Ci-dessous une petite liste de ce qui pourrait être proposé : 
-
-- Financiers 🥧
-- Cookies🍪
-- Fondant chocolat 🍫  
-- Cannelés ❤️ 
-
-N'hésitez pas si vous avez d'autres suggestions de petites gourmandises qui pourraient ravir vos papilles !
-Je vous redonne une date en fin de semaine avec les prix et la vente sera sans doute programmée pour la semaine prochaine.`),
-(2, '2024-01-23 09:24:54', `Comme indiqué dans le mail communiqué par Mme. Vieillard, une participation de 5€ est demandé pour la balade en bateau sur la Seine pour la sortie à Paris le 16 mai 2024
-
-📍  Merci de venir au niveau du bureau de l'adiil au moment des pauses ou de nous solliciter directement dans les couloirs du bâtiment 
-
-⚠️ Le seul moyen de payement accepté est le liquide 
-
-🔗 En cas de problème pour le payement merci de contacter directement Mme. Vieillard par mail`),
-(3, '2024-02-28 17:27:51', `## Rendez-vous au BDE pour une pause gourmande ! 🍰
-
-Nous avons encore quelques douceurs qui n'attendent que vous :
-- Financiers 🧁
-- Gâteau au chocolat fondant 🍫
-
-Ne manquez pas cette chance de vous régaler et de soutenir notre BDE ! Venez vite, ils partent comme des petits pains ! `);
 /*!40000 ALTER TABLE `annonce` ENABLE KEYS */
 
 ;
