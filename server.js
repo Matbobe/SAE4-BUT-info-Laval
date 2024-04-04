@@ -119,6 +119,9 @@ app.use("/shop", shop);
 import product from "./router/product.js";
 app.use("/shop/product", product);
 
+import annonce from "./router/annonce.js";
+app.use("/annonce", annonce);
+
 app.get("/legal", (req, res) => {
   res.render("legal");
 });
@@ -629,6 +632,17 @@ app.use("/api/discord/getDiscordInfos", getDiscordInfos);
 
 import setDiscordInfos from "./api/discord/setDiscordInfos.js";
 app.use("/api/discord/setDiscordInfos", setDiscordInfos);
+
+// annonce
+
+import createAnnonce from "./api/annonce/createAnnonce.js";
+app.use("/api/annonce/create", createAnnonce);
+
+import editAnnonce from "./api/annonce/editAnnonce.js";
+app.use("/api/annonce/edit", editAnnonce);
+
+import deleteAnnonce from "./api/annonce/deleteAnnonce.js";
+app.use("/api/annonce/delete", deleteAnnonce);
 
 //random API endpoints
 

@@ -11,18 +11,20 @@ router.post("", async (req, res) => {
   }
 
   if (!id) {
-    return res.status(400).json({ error: "Missing required information" });
+    res.status(400).json({ error: "Veuillez remplir tous les champs" });
+    return;
   }
 
   try {
-    const query = "DELETE FROM product WHERE id = ?";
-    await pool.query(query, [id]);
-    res.status(200).json({ message: "Product deleted successfully" });
+    await pool.query(
+      "DELETE FROM annonce WHERE id = ?",
+      [id]
+    );
+
+    res.status(200).json({ message: "Annonce supprimée" });
   } catch (error) {
-    console.error("Error deleting product:", error);
-    res
-      .status(500)
-      .json({ error: "An error occurred while deleting the product" });
+    console.error("Error in deleteAnnonce.js", error);
+    res.status(500).json({ error: "Erreur lors de la suppression de l'annonce" });
   }
 });
 

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <script src="https://unpkg.com/ical.js@1.5.0/build/ical.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/he/1.2.0/he.min.js"></script>
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <title>ADIIL</title>
+  </head>
+
+  <body data-theme="light" id="homeBody">
+    <%- include('header', {cartSize, isLoggedIn, isAdmin}) %>
+
+    <main id="annoncesPage">
+      <h1>Annonces</h1>
+      <div id="annoncesContainer">
+        <% if (annonces.length === 0) { %>
+        <p style="text-align: center;">Il n'y a pas d'annonces pour le moment</p>
+        <% } %> <% annonces.forEach((annonce) => { %>
+        <div class="annonce" id="annonce<%= annonce.id %>">
+          <p id="content<%= annonce.id %>"></p>
+          <script>
+            document.getElementById("content<%= annonce.id %>").innerHTML =
+              "<%= annonce.created_at.toLocaleDateString('fr-FR', {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit'}) %>" +
+              marked.parse(`<%= annonce.content %>`);
+          </script>
+        </div>
+        <% }) %>
+      </div>
+    </main>
+  </body>
+  <script src="/js/logic.js"></script>
+</html>
