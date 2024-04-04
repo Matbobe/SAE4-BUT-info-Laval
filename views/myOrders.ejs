@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mes Commandes</title>
+    <link rel="stylesheet" href="/css/orders.css" />
+    <link rel="stylesheet" href="/css/style.css" />
+    
+    <script src="https://unpkg.com/ical.js@1.5.0/build/ical.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/he/1.2.0/he.min.js"></script>
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+</head>
+<body data-theme="light">
+    <%- include('header', {cartSize ,isLoggedIn,isAdmin}) %>
+    
+    <div class="texte-header">
+    <h2>Bonjour, <em><%= username %></em><br><br> votre historique des commandes :</h2>
+    <% if (orders.length === 0) { %>
+        <p>Vous n'avez pas encore commandé de produits</p>
+        <button class="button-buy" onclick="location.href='/shop/'">Aller à la boutique</button>
+    <% } else { %>
+        <p>Vous avez commandé <em><%= orders.length %></em> produits</p>
+    <% } %>
+    </div>
+    <div class="orders">
+        <% 
+        let currentTransactionId = null;
+        let totalPrice = 0;
+        orders.forEach(function(order) { 
+            if (order.transaction_id !== currentTransactionId) {
+                if (currentTransactionId !== null) {
+                    %>
+                    <div class="order-total">
+                        <p>Total: <%= totalPrice %> €</p>
+                    </div>
+                    </div><%
+                }
+                currentTransactionId = order.transaction_id;
+                totalPrice = 0;
+                %>
+                <div class="order">
+                    <div class="order-header">
+                        <h3><em>Commande:</em> <%= order.transaction_id %></h3>
+                        <p><%= order.purchase_date %></p>
+                    </div>
+                <% 
+            }
+            totalPrice += order.price;
+            %>
+            <div class="order-content">
+                <div class="order-product">
+                <div
+                    class="productImage"
+                    style="background-image: url('/products/<%= order.image %>');  background-color:<%= order.background_color %>">
+                </div>
+                <div class="productDesc">
+                    <h4><%= order.name %></h4>
+                    <p>Prix: <%= order.price %> €</p>
+                </div>
+                </div>
+                <button class="button-rebuy" onclick="location.href='shop/product/<%= order.name.replace(` `, `-`) %>'">Racheter</button>
+            </div>
+        <% 
+        }); 
+        if (currentTransactionId !== null) {
+            %>
+            <div class="order-total">
+                <p>Total: <%= totalPrice %> €</p>
+            </div>
+            </div><% 
+        }
+        %>
+        </div>
+    
+    
+</body>
+<script src="/js/logic.js"></script>
+</html>
