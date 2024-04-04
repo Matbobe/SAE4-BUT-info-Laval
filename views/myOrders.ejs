@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mes Commandes</title>
+    <link rel="stylesheet" href="/css/orders.css" />
+    <link rel="stylesheet" href="/css/style.css" />
+    
+    <script src="https://unpkg.com/ical.js@1.5.0/build/ical.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/he/1.2.0/he.min.js"></script>
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+</head>
+<body data-theme="light">
+    <%- include('header', {cartSize ,isLoggedIn,isAdmin}) %>
+    
+    <h1>Bonjour, <%= username %></h1>
+    <h2>Voici vos commandes</h2>
+    <p>Vous avez effectué <%= orders.length %> commandes</p>
+
+    <h3>Historique des commandes</h3>
+    <div class="orders">
+        <% 
+        let currentTransactionId = null;
+        let totalPrice = 0;
+        orders.forEach(function(order) { 
+            if (order.transaction_id !== currentTransactionId) {
+                if (currentTransactionId !== null) {
+                    %>
+                    <div class="order-total">
+                        <p>Total: <%= totalPrice %></p>
+                    </div>
+                    </div><%
+                }
+                currentTransactionId = order.transaction_id;
+                totalPrice = 0;
+                %>
+                <div class="order">
+                    <div class="order-header">
+                        <p>Commande: <%= order.transaction_id %></p>
+                        <p><%= order.purchase_date %></p>
+                    </div>
+                <% 
+            }
+            totalPrice += order.price;
+            // Display the product
+            %>
+            <div class="order-content">
+                <div
+                    class="productImage"
+                    style="background-image: url('/products/<%= order.image %>');  background-color:<%= order.background_color %>">
+                </div>
+                <div class="productDesc">
+                    <h4><%= order.name %></h4>
+                    <p>Prix: <%= order.price %> €</p>
+                </div>
+            </div>
+        <% 
+        }); 
+        if (currentTransactionId !== null) {
+            %>
+            <div class="order-total">
+                <p>Total: <%= totalPrice %> €</p>
+            </div>
+            </div><% 
+        }
+        %>
+        </div>
+    
+    
+</body>
+<script src="/js/logic.js"></script>
+</html>

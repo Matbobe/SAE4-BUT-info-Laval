@@ -70,13 +70,13 @@
   <script>
     const background_color = "<%= product.background_color %>";
     const random_Color = randomPastelColor('<%= product.name %>');
+
     if (background_color){
-    document.getElementById('img').style.backgroundColor = background_color;
-    console.log(background_color);
-    document.getElementById('buy').style.backgroundColor = background_color;
+      document.getElementById('img').style.backgroundColor = background_color;
+      document.getElementById('buy').style.backgroundColor = background_color;
     }else{
-      document.getElementById('img').style.backgroundColor =  random_Color;
-      document.getElementById('buy').style.backgroundColor =  random_Color;
+        document.getElementById('img').style.backgroundColor =  random_Color;
+        document.getElementById('buy').style.backgroundColor =  random_Color;
     }
 
     const date_expire = '<%= product.expire_date %>';

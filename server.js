@@ -89,6 +89,9 @@ app.use("/", homepage);
 import admin from "./router/admin.js";
 app.use("/admin", admin);
 
+import myOrders from "./router/myOrders.js";
+app.use("/myorders", myOrders);
+
 import login from "./router/login.js";
 app.use("/login", login);
 
@@ -134,6 +137,13 @@ app.get("/discord-verif", async (req, res) => {
 
 app.get("/changelogs", async (req, res) => {
   res.render("changelogsMenu");
+});
+
+app.get('/myOrders', async (req, res) => {
+  res.render('myOrders', {
+    isLoggedIn: req.session.isLoggedIn,
+  }
+  );
 });
 
 app.get("/leaderboard", async (req, res) => {
