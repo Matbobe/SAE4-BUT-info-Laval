@@ -698,16 +698,15 @@ app.post("/removeItemFromCartPort", async (req, res) => {
 });
 
 app.post("/addItemToCartPort", (req, res) => {
-  const { id, size, quantity } = req.body;
+  const { id, size } = req.body;
+  const quantity = req.body.quantity || 1;
   //get item type from header
   const type = req.headers["item-type"];
 
   if (!req.session.cart) {
     req.session.cart = [];
   }
-
   const item = req.session.cart.find((item) => item.id === id);
-
   if (!item) {
     if (size !== undefined && size !== null && type === "product") {
       req.session.cart.push({

@@ -5,7 +5,6 @@ import { pool } from "../../server.js";
 router.get("", async (req, res) => {
   const itemsToSend = [];
   var promises = [];
-
   const cart = req.session.cart || [];
 
   for (const item of cart) {
