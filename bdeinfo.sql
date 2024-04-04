@@ -562,7 +562,7 @@ Nous avons encore quelques douceurs qui n'attendent que vous :
 - Financiers 🧁
 - Gâteau au chocolat fondant 🍫
 
-Ne manquez pas cette chance de vous régaler et de soutenir notre BDE ! Venez vite, ils partent comme des petits pains ! `)
+Ne manquez pas cette chance de vous régaler et de soutenir notre BDE ! Venez vite, ils partent comme des petits pains ! `);
 /*!40000 ALTER TABLE `annonce` ENABLE KEYS */
 
 ;
