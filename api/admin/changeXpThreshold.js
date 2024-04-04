@@ -11,7 +11,7 @@ router.post('', async (req, res) => {
   const xpEvent = req.body.xpAmount;
   const xpGrade = req.body.xpThreshold;
 
-  if (!xpEvent || !xpGrade || isNaN(xpEvent) || isNaN(xpGrade) || xpEvent < 0 || xpGrade < 0) {
+  if (!xpEvent || !xpGrade || isNaN(xpEvent) || isNaN(xpGrade) || xpEvent < 0 || xpGrade < 0 || xpEvent > 10000 || xpGrade > 10000) {
     res.status(400).json({error: 'Veuillez entrer un nombre valide'});
     return;
   }
