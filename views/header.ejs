@@ -5,7 +5,9 @@
   <a href="/calendar/">Agenda</a>
   <% } %>
   <a href="/shop/">Boutique</a>
-
+  <% if (isLoggedIn) { %>
+    <a href="/myOrders">Mes commandes</a>
+  <% } %>
   <% if (isAdmin) { %>
     <a href="/admin/">Admin</a>
   <% } %>

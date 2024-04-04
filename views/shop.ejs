@@ -16,6 +16,7 @@
 
   <body data-theme="light">
     <%- include('header', {cartSize, isLoggedIn}) %>
+    <% if (splashProducts != 'None') { %>
     <div data-role="carousel" 
       data-height="400px" >
       <% splashProducts.forEach(function(product) { %>
@@ -37,6 +38,7 @@
         </div>
       <% }) %>
     </div>
+    <% } %>
     <h3>La boutique</h3>
     <% if (products.length == 0) { %>
     <p>Il n'y a pas de produits disponibles actuellement</p>
