@@ -142,11 +142,10 @@ app.get("/changelogs", async (req, res) => {
   res.render("changelogsMenu");
 });
 
-app.get('/myOrders', async (req, res) => {
-  res.render('myOrders', {
+app.get("/myOrders", async (req, res) => {
+  res.render("myOrders", {
     isLoggedIn: req.session.isLoggedIn,
-  }
-  );
+  });
 });
 
 app.get("/leaderboard", async (req, res) => {
@@ -699,7 +698,7 @@ app.post("/removeItemFromCartPort", async (req, res) => {
 });
 
 app.post("/addItemToCartPort", (req, res) => {
-  const { id, size } = req.body;
+  const { id, size, quantity } = req.body;
   //get item type from header
   const type = req.headers["item-type"];
 
@@ -711,8 +710,13 @@ app.post("/addItemToCartPort", (req, res) => {
 
   if (!item) {
     if (size !== undefined && size !== null && type === "product") {
-      req.session.cart.push({ type: type, id: id, size: size }); // add the item to the cart if it doesn't exist yet
-    } else req.session.cart.push({ type: type, id: id }); // add the item to the cart if it doesn't exist yet
+      req.session.cart.push({
+        type: type,
+        id: id,
+        size: size,
+        quantity: quantity,
+      }); // add the item to the cart if it doesn't exist yet
+    } else req.session.cart.push({ type: type, id: id, quantity: quantity }); // add the item to the cart if it doesn't exist yet
   } else {
     res
       .status(409)

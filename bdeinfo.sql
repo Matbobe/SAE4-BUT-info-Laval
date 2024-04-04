@@ -372,10 +372,11 @@ CREATE TABLE `transactionContent` (
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */
 ;
---
+ALTER TABLE transactionContent ADD COLUMN quantity INT;
 -- Dumping data for table `transactionContent`
 --
 LOCK TABLES `transactionContent` WRITE;
+
 /*!40000 ALTER TABLE `transactionContent` DISABLE KEYS */
 ;
 INSERT INTO `transactionContent`
@@ -385,7 +386,8 @@ VALUES (
     NULL,
     2,
     'Pull 2023-2024(m)',
-    27.5
+    27.5,
+    1
   );
 /*!40000 ALTER TABLE `transactionContent` ENABLE KEYS */
 ;

@@ -1,17 +1,17 @@
-import express from 'express';
+import express from "express";
 const router = express.Router();
-import {pool} from '../../server.js';
+import { pool } from "../../server.js";
 
-router.post('', async (req, res) => {
-  if (!req.session.isLoggedIn || req.session.category !== 'admin') {
-    res.redirect('/login?returnUrl=/admin/products');
+router.post("", async (req, res) => {
+  if (!req.session.isLoggedIn || req.session.category !== "admin") {
+    res.redirect("/login?returnUrl=/admin/products");
     return;
   }
 
-  const {productId, buyer, options} = req.body;
+  const { productId, buyer, options, quantity } = req.body;
 
   if (!productId || !buyer) {
-    res.status(403).json({success: false, message: 'Missing data'});
+    res.status(403).json({ success: false, message: "Missing data" });
     return;
   }
 
@@ -19,20 +19,20 @@ router.post('', async (req, res) => {
   //create unique transaction id from the current date and time
   const date = new Date();
   let transactionId = `${date.getFullYear()}${date.getMonth()}${date.getDate()}${date.getHours()}${date.getMinutes()}${date.getSeconds()}${date.getMilliseconds()}`;
-  transactionId = transactionId + ' (paiement liquide)';
+  transactionId = transactionId + " (paiement liquide)";
   //get the price of the product
-  const [product] = await pool.query('SELECT * FROM product WHERE id = ?', [
+  const [product] = await pool.query("SELECT * FROM product WHERE id = ?", [
     productId,
   ]);
 
   //check if the buyer exists
-  const [user] = await pool.query('SELECT * FROM user WHERE email = ?', [
+  const [user] = await pool.query("SELECT * FROM user WHERE email = ?", [
     buyer,
   ]);
 
   if (user.length === 0) {
     //create the user
-    await pool.query('INSERT INTO user (email, username) VALUES (?, ?)', [
+    await pool.query("INSERT INTO user (email, username) VALUES (?, ?)", [
       buyer,
       buyer,
     ]);
@@ -41,35 +41,39 @@ router.post('', async (req, res) => {
   //add the transaction
   await pool
     .query(
-      'INSERT INTO transaction (transaction_id, email, purchase_date, total_price) VALUES (?, ?, ?, ?)',
+      "INSERT INTO transaction (transaction_id, email, purchase_date, total_price) VALUES (?, ?, ?, ?)",
       [transactionId, buyer, date, product[0].price]
     )
     .then(async () => {
       let prodcutName = product[0].name;
-      if (options && options !== '') {
+      if (options && options !== "") {
         prodcutName = `${prodcutName} (${options})`;
       }
-      //add the transactionContent
+
+      // Récupérer la quantité de la requête
+      const quantity = req.query.quantity || 1;
+
+      // Utiliser la quantité dans la requête SQL
       await pool.query(
-        'INSERT INTO transactionContent (transaction_id, product_id, item_name, item_price) VALUES (?, ?, ?, ?)',
-        [transactionId, productId, prodcutName, product[0].price]
+        "INSERT INTO transactionContent (transaction_id, product_id, item_name, item_price, quantity) VALUES (?, ?, ?, ?, ?)",
+        [transactionId, productId, prodcutName, product[0].price, quantity]
       );
 
       //add xp to the buyer
-      await pool.query('UPDATE user SET xp = xp + ? WHERE email = ?', [
+      await pool.query("UPDATE user SET xp = xp + ? WHERE email = ?", [
         process.env.XP_AMOUNT,
         buyer,
       ]);
 
-      res.status(200).json({success: true, message: 'Produit ajouté'});
+      res.status(200).json({ success: true, message: "Produit ajouté" });
     })
     .catch((err) => {
       console.error(
-        'Erreur lors du traitement des requêtes SQL d ajout de transaction:',
+        "Erreur lors du traitement des requêtes SQL d ajout de transaction:",
         err
       );
       // Gérer l'erreur comme vous le souhaitez
-      res.status(500).json({success: false, message: err});
+      res.status(500).json({ success: false, message: err });
       return;
     });
 });
