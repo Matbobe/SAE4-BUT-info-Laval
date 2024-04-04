@@ -43,7 +43,7 @@ document.getElementById("loginForm").addEventListener("submit", (e) => {
 
 async function sendChckCodeFetch() {
   const passcode = document.getElementById("passcode").value;
-  const email = document.getElementById("email").value;
+  const email = document.getElementById("emailOublie").value;
 
   const passcodeResponse = await fetch("/api/account/checkPasscode", {
     method: "POST",
